@@ -1,7 +1,8 @@
 import './bootstrap';
 
-import Alpine from 'alpinejs';
+import Alpine from 'alpinejs'
 
-window.Alpine = Alpine;
+Alpine.start()
 
-Alpine.start();
+// If you want Alpine's instance to be available globally
+window.Alpine = Alpine
