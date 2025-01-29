@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Gate;
+use App\Models\User;
+use App\Models\Project;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -22,6 +24,9 @@ class AppServiceProvider extends ServiceProvider
     {
         Gate::define('admin', function(){
             return auth()->user()->is_admin === 1;
+        });
+        Gate::define('edit-project', function(User $user, Project $project){
+            return auth()->user()->is_admin === 1 || $project->user_id == auth()->id();
         });
     }
 }

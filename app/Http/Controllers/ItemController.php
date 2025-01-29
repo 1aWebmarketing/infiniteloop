@@ -20,7 +20,9 @@ class ItemController extends Controller
     {
         $item = new Item;
         $item->project_id = $project->id;
-        $item->story = '<h2 dir="auto">Beschreibung (Haupt User Story):</h2>
+        $item->story = $project->template;
+
+        $s = '<h2 dir="auto">Beschreibung (Haupt User Story):</h2>
         <p dir="auto">[WAS WILLST DU MACHEN UM WAS ZU ERREICHEN?]</p>
         <h2 dir="auto">Akzeptanzkriterien:</h2>
         <p dir="auto">[WAS MUSS ERFOLGREICH PASSIEREN, DAMIT DIESE USER STORY ABGESCHLOSSEN WERDEN KANN]</p>

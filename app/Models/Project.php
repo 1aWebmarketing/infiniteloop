@@ -9,14 +9,16 @@ class Project extends Model
     protected $fillable = [
         'user_id',
         'name',
+        'logo',
         'description',
+        'template'
     ];
 
     public function getLogoUrl()
     {
         if( $this->logo )
         {
-            return asset('storage/projects/' . $this->logo);
+            return asset('storage/' . $this->logo);
         }
         return asset('storage/projects/default.png');
     }

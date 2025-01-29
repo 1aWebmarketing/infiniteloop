@@ -1,7 +1,7 @@
 <x-app-layout>
 
     <div class="mt-8 flex gap-4 items-center pb-6">
-        <div class="bg-gray-100 rounded-full w-[100px] h-[100px] p-2 shadow border border-gray-400">
+        <div class="bg-gray-100 rounded-full w-[100px] h-[100px] p-2 shadow border border-gray-400 overflow-hidden">
             <img src="{{ $project->getLogoUrl() }}">
         </div>
         <div>

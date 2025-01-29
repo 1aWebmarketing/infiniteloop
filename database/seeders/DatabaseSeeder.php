@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
 
         $adfinity = Project::create([
             'name' => 'adfinity',
-            'logo' => 'adfinity.png',
+            'logo' => 'projects/adfinity.png',
             'user_id' => $user->id,
             'description' => 'adfinity is a web application that allows users to create social ads for platforms like Facebook and Instagram.',
         ]);

@@ -9,8 +9,11 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth')->group(function () {
     Route::get('/', [ProjectController::class, 'index'])->name('dashboard');
     Route::get('/projects/create', [ProjectController::class, 'create'])->name('projects.create');
-    Route::get('/projects/create/store', [ProjectController::class, 'store'])->name('projects.store');
+    Route::post('/projects/create/store', [ProjectController::class, 'store'])->name('projects.store');
     Route::get('/projects/{project}', [ProjectController::class, 'show'])->name('projects.show');
+    Route::get('/projects/{project}/edit', [ProjectController::class, 'edit'])->name('projects.edit');
+    Route::put('/projects/{project}/edit', [ProjectController::class, 'update'])->name('projects.update');
+    Route::delete('/projects/{project}', [ProjectController::class, 'destroy'])->name('projects.destroy');
 
     Route::get('/projects/{project}/items/create', [ItemController::class, 'create'])->name('items.create');
     Route::post('/projects/{project}/items/create/save', [ItemController::class, 'store'])->name('items.store');
