@@ -22,7 +22,7 @@
 
     @foreach($item->comments as $comment)
         <x-box>
-            <p class="text-gray-400">{{ $comment->user->name }} am {{ $comment->created_at->format('d.m.Y H:i') }}</p>
+            <p class="text-gray-400">{{ $comment->user->name }} &lt;{{ $comment->user->email }}&gt; am {{ $comment->created_at->format('d.m.Y H:i') }}</p>
 
             <div>
                 {{ $comment->text }}
