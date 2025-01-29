@@ -1,12 +1,12 @@
 <x-app-layout>
 
     <div class="mt-8 flex gap-4 items-center pb-4">
-        <div class="bg-gray-100 rounded-full w-[100px] h-[100px] p-2">
+        <div class="bg-gray-100 rounded-full w-[100px] h-[100px] p-2 shadow border border-gray-400">
             <img src="{{ $item->project->getLogoUrl() }}">
         </div>
         <div>
-            <a class="text-xs hover:underline" href="{{ route('projects.show', ['project' => $item->project->id]) }}">Zurück zu {{ $item->project->name }}</a>
-            <x-h1 class="">{{ $item->project->name }} - Feature vorschlagen</x-h1>
+            <a class="text-xs text-white drop-shadow hover:underline" href="{{ route('projects.show', ['project' => $item->project->id]) }}">Zurück zu {{ $item->project->name }}</a>
+            <x-h1 class="text-white drop-shadow-lg">{{ $item->project->name }} - Feature vorschlagen</x-h1>
         </div>
     </div>
 
@@ -23,10 +23,10 @@
 
             <x-forms.tinymce-editor name="story">{{ old('story', $item->story) }}</x-forms.tinymce-editor>
 
-            <p class="mt-2">Typ</p>
+            <x-h2 class="my-4">Typ</x-h2>
             <x-item-type name="type" :value="$item->type"/>
 
-            <p class="mt-2">Priorität</p>
+            <x-h2 class="my-4">Priorität</x-h2>
             <x-item-priority name="priority" :value="$item->priority"/>
 
             <x-primary-button class="mt-4">Speichern</x-primary-button>

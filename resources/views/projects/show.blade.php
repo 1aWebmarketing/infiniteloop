@@ -1,12 +1,12 @@
 <x-app-layout>
 
     <div class="mt-8 flex gap-4 items-center pb-6">
-        <div class="bg-gray-100 rounded-full w-[100px] h-[100px] p-2">
+        <div class="bg-gray-100 rounded-full w-[100px] h-[100px] p-2 shadow border border-gray-400">
             <img src="{{ $project->getLogoUrl() }}">
         </div>
         <div>
-            <a class="text-xs hover:underline" href="{{ route('dashboard') }}">Zurück zur Projektübersicht</a>
-            <x-h1 class="">{{ $project->name }}</x-h1>
+            <a class="text-xs text-white drop-shadow hover:underline" href="{{ route('dashboard') }}">Zurück zur Projektübersicht</a>
+            <x-h1 class="text-white drop-shadow-lg">{{ $project->name }}</x-h1>
         </div>
     </div>
 
@@ -45,6 +45,16 @@
                 <div class="pt-2">
                     <p>{{ $item->comments()->count() }} Kommentare</p>
                     <a href="{{ route('items.show', ['project' => $project->id, 'item' => $item->id]) }}" class="text-sm flex gap-2 items-center font-medium text-gray-600">Details ansehen <x-icons.right-arrow width="1em" height="1em"/></a>
+
+                    @can('admin')
+                        <div class="mt-4">
+                            <form action="{{ route('items.destroy', ['project' => $project->id, 'item' => $item->id]) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button class="text-sm flex gap-2 items-center font-medium text-gray-600">Löschen <x-icons.right-arrow width="1em" height="1em"/></button>
+                            </form>
+                        </div>
+                    @endcan
                 </div>
             </div>
         @endforeach

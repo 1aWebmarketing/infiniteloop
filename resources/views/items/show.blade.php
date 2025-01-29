@@ -1,12 +1,12 @@
 <x-app-layout>
 
     <div class="mt-8 flex gap-4 items-center pb-4">
-        <div class="bg-gray-100 rounded-full w-[100px] h-[100px] p-2">
+        <div class="bg-gray-100 rounded-full w-[100px] h-[100px] p-2 shadow border border-gray-400">
             <img src="{{ $item->project->getLogoUrl() }}">
         </div>
         <div>
-            <a class="text-xs hover:underline" href="{{ route('projects.show', ['project' => $item->project->id]) }}">Zurück zu {{ $item->project->name }}</a>
-            <x-h1 class="">{{ $item->title }}</x-h1>
+            <a class="text-white text-xs drop-shadow hover:underline" href="{{ route('projects.show', ['project' => $item->project->id]) }}">Zurück zu {{ $item->project->name }}</a>
+            <x-h1 class="text-white drop-shadow-lg">{{ $item->title }}</x-h1>
 
             <ul class="flex gap-4 mt-2">
                 <li>{!! $item->typePillHtml() !!}</li>
@@ -30,7 +30,7 @@
         </x-box>
     @endforeach
 
-    <x-h2>Kommentieren</x-h2>
+    <x-h2 class="py-2 text-white">Kommentieren</x-h2>
 
     <x-box>
         <form action="{{ route('comments.store', ['item' => $item->id]) }}" method="POST">

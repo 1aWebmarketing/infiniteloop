@@ -72,4 +72,14 @@ class ItemController extends Controller
                 'project' => $item->project->id,
             ]);
     }
+
+    public function destroy(Request $request, Project $project, Item $item)
+    {
+        $item->delete();
+
+        return redirect()
+            ->route('projects.show', [
+                'project' => $project->id,
+            ]);
+    }
 }

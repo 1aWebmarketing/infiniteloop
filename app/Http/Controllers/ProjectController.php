@@ -29,4 +29,18 @@ class ProjectController extends Controller
             'project' => $project,
         ]);
     }
+
+    public function create(Request $request)
+    {
+        $project = new Project;
+
+        return view('projects/form', [
+            'project' => $project,
+        ]);
+    }
+
+    public function store(Request $request)
+    {
+        // 
+    }
 }
