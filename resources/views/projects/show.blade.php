@@ -18,7 +18,7 @@
             <x-primary-link-button href="{{ route('items.create', ['project' => $project->id]) }}">✨ Feature vorschlagen ✨</x-primary-link-button>
         </div>
 
-        @foreach($project->items as $item)
+        @foreach($items as $item)
             <div class="flex gap-4 mb-2 border-b pb-2">
                 <div class="bg-gray-100 rounded p-2 flex flex-col gap-2 justify-center items-center">
                     <form action="{{ route('items.upvote', ['item' => $item->id]) }}" method="POST">

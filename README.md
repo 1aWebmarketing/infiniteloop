@@ -2,6 +2,8 @@
 
 Use this app to gather UserStories from inside your company. Let users upvote ideas and categories ideas by type and prio.
 
+![image](https://raw.githubusercontent.com/1aWebmarketing/suggestr/refs/heads/main/Screenshots/screen-1.png)
+
 ## Registration Domain Control
 
 Define your companies Email domain in your `.env` file to prevent external users to register to the platform.

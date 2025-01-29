@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Project;
+use App\Models\Item;
 use Illuminate\Support\Facades\Gate;
 
 class ProjectController extends Controller
@@ -26,8 +27,11 @@ class ProjectController extends Controller
 
     public function show(Project $project)
     {
+        $items = $project->items()->orderByDesc('voting')->get();
+
         return view('projects/show', [
             'project' => $project,
+            'items' => $items,
         ]);
     }
 
