@@ -18,6 +18,17 @@
 
                 <p class="text-gray-400 my-2">{{ $project->description }}</p>
 
+                <ul class="flex gap-4 mb-2">
+                    <li class="flex gap-2">
+                        <x-icons.items width="1em"/>
+                        {{ $project->items_count }}
+                    </li>
+                    <li class="flex gap-2">
+                        <x-icons.comments width="1em"/>
+                        {{ $project->total_comments }}
+                    </li>
+                </ul>
+
                 <x-primary-link-button :href="route('projects.show', ['project' => $project->id])">Auswählen</x-primary-link-button>
             </div>
         @endforeach

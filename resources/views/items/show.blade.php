@@ -15,9 +15,31 @@
         </div>
     </div>
 
-    <div class="bg-white rounded-2xl shadow p-4">
+    <x-box>
         <p>Von: {{ $item->user->name }} am {{ $item->created_at->format('d.m.Y H:i') }}</p>
         {!! $item->styledStory() !!}
+    </x-box>
 
-    </div>
+    @foreach($item->comments as $comment)
+        <x-box>
+            <p class="text-gray-400">{{ $comment->user->name }} am {{ $comment->created_at->format('d.m.Y H:i') }}</p>
+
+            <div>
+                {{ $comment->text }}
+            </div>
+        </x-box>
+    @endforeach
+
+    <x-h2>Kommentieren</x-h2>
+
+    <x-box>
+        <form action="{{ route('comments.store', ['item' => $item->id]) }}" method="POST">
+            @csrf
+
+            <x-textarea-group name="text"></x-textarea-group>
+
+            <x-primary-button>Absenden</x-primary-button>
+        </form>
+    </x-box>
+
 </x-app-layout>

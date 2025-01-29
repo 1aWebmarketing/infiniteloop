@@ -12,8 +12,8 @@
 
     <div class="bg-white rounded-2xl shadow p-4">
         <div class="flex gap-4 mb-4 border-b pb-4">
-            <x-primary-button>Alle anzeigen</x-primary-button>
-            <x-primary-button>Abgeschlossene Items</x-primary-button>
+            {{--<x-primary-button>Alle anzeigen</x-primary-button>
+            <x-primary-button>Abgeschlossene Items</x-primary-button> --}}
             <div class="flex-grow"></div>
             <x-primary-link-button href="{{ route('items.create', ['project' => $project->id]) }}">✨ Feature vorschlagen ✨</x-primary-link-button>
         </div>
@@ -21,7 +21,16 @@
         @foreach($project->items as $item)
             <div class="flex gap-4 mb-2 border-b pb-2">
                 <div class="bg-gray-100 rounded p-2 flex flex-col gap-2 justify-center items-center">
-                    <button class="hover:cursor-pointer"><x-icons.up-arrow width="25px" height="25px" /></button>
+                    <form action="{{ route('items.upvote', ['item' => $item->id]) }}" method="POST">
+                        @csrf
+                        <button class="hover:cursor-pointer">
+                            @if( Cache::get('user-' . auth()->id() . '-item-' . $item->id) )
+                                <x-icons.up-arrow-green width="25px" height="25px" />
+                            @else
+                                <x-icons.up-arrow width="25px" height="25px" />
+                            @endif
+                        </button>
+                    </form>
                     <p class="font-bold text-xl">{{ $item->voting }}</p>
                 </div>
 
@@ -34,7 +43,7 @@
                     </ul>
                 </div>
                 <div class="pt-2">
-                    <p>0 Kommentare</p>
+                    <p>{{ $item->comments()->count() }} Kommentare</p>
                     <a href="{{ route('items.show', ['project' => $project->id, 'item' => $item->id]) }}" class="text-sm flex gap-2 items-center font-medium text-gray-600">Details ansehen <x-icons.right-arrow width="1em" height="1em"/></a>
                 </div>
             </div>

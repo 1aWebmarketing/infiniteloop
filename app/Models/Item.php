@@ -26,6 +26,11 @@ class Item extends Model
         return $this->belongsTo(Project::class);
     }
 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
     public function typePillHtml()
     {
         return match($this->type){

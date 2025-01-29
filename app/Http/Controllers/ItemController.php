@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Item;
 use App\Models\Project;
+use Illuminate\Support\Facades\Cache;
 
 class ItemController extends Controller
 {
@@ -47,6 +48,26 @@ class ItemController extends Controller
         return redirect()
             ->route('projects.show', [
                 'project' => $fields['project_id']
+            ]);
+    }
+
+    public function upvote(Item $item)
+    {
+        if( Cache::get('user-' . auth()->id() . '-item-' . $item->id) )
+        {
+            return redirect()
+                ->route('projects.show', [
+                    'project' => $item->project->id,
+                ]);
+        }
+
+        $item->increment('voting');
+
+        Cache::put('user-' . auth()->id() . '-item-' . $item->id, 1);
+
+        return redirect()
+            ->route('projects.show', [
+                'project' => $item->project->id,
             ]);
     }
 }

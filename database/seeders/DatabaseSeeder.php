@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 use App\Models\Project;
 use App\Models\Item;
+use App\Models\Comment;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -30,7 +31,7 @@ class DatabaseSeeder extends Seeder
             'description' => 'adfinity is a web application that allows users to create social ads for platforms like Facebook and Instagram.',
         ]);
 
-        Item::create([
+        $item = Item::create([
             'title' => 'Item #1',
             'story' => '<h2 dir="auto">Beschreibung (Haupt User Story):</h2>
                 <p dir="auto">[WAS WILLST DU MACHEN UM WAS ZU ERREICHEN?]</p>
@@ -44,6 +45,12 @@ class DatabaseSeeder extends Seeder
             'user_id' => $user->id,
             'voting' => 2,
             'type' => 'FEATURE',
+        ]);
+
+        Comment::create([
+            'item_id' => $item->id,
+            'user_id' => $user->id,
+            'text' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
         ]);
 
         $brian = Project::create([

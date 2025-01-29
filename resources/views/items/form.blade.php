@@ -4,10 +4,13 @@
         <div class="bg-gray-100 rounded-full w-[100px] h-[100px] p-2">
             <img src="{{ $item->project->getLogoUrl() }}">
         </div>
-        <x-h1 class="">{{ $item->project->name }} - Feature vorschlagen</x-h1>
+        <div>
+            <a class="text-xs hover:underline" href="{{ route('projects.show', ['project' => $item->project->id]) }}">Zurück zu {{ $item->project->name }}</a>
+            <x-h1 class="">{{ $item->project->name }} - Feature vorschlagen</x-h1>
+        </div>
     </div>
 
-    <div class="bg-white rounded-2xl shadow p-4">
+    <x-box>
         <form action="{{ $item->exists ? route('items.update', $item->id) : route('items.store', ['project' => $item->project->id]) }}" method="POST">
             @csrf
             @if($item->exists)
@@ -26,8 +29,8 @@
             <p class="mt-2">Priorität</p>
             <x-item-priority name="priority" :value="$item->priority"/>
 
-            <x-primary-button class="mt-2">Speichern</x-primary-button>
+            <x-primary-button class="mt-4">Speichern</x-primary-button>
         </form>
-    </div>
+    </x-box>
 
 </x-app-layout>
