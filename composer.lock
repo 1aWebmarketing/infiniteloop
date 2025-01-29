@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "32b9f205ca8831bd6b080eda7f5d16f5",
+    "content-hash": "ad789cf7e2fad8d2f27249d613ddf435",
     "packages": [
         {
             "name": "brick/math",
@@ -2583,6 +2583,59 @@
                 }
             ],
             "time": "2024-11-21T10:39:51+00:00"
+        },
+        {
+            "name": "oneawebmarketing/laravel-changelog",
+            "version": "1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/1aWebmarketing/laravel-changelog.git",
+                "reference": "52482f17bd66d0a3bd79d0fba816eada8faa76a2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/1aWebmarketing/laravel-changelog/zipball/52482f17bd66d0a3bd79d0fba816eada8faa76a2",
+                "reference": "52482f17bd66d0a3bd79d0fba816eada8faa76a2",
+                "shasum": ""
+            },
+            "require": {
+                "league/commonmark": "^2.6"
+            },
+            "require-dev": {
+                "league/commonmark": "^2.6"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "OneAWebmarketing\\LaravelChangelog\\LaravelChangelogServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/Helpers/changelog.php"
+                ],
+                "psr-4": {
+                    "OneAWebmarketing\\LaravelChangelog\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "1aWebmarketing",
+                    "email": "info@1awebmarketing.de"
+                }
+            ],
+            "description": "This package supplies 2 helper functions for getting the changelog app version and the changelog as html",
+            "support": {
+                "issues": "https://github.com/1aWebmarketing/laravel-changelog/issues",
+                "source": "https://github.com/1aWebmarketing/laravel-changelog/tree/1.0.3"
+            },
+            "time": "2025-01-17T18:01:50+00:00"
         },
         {
             "name": "phpoption/phpoption",
