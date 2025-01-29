@@ -61,9 +61,10 @@ class Item extends Model
                     font-size: 2em;
                 }
                 .userstory h2{
-                    font-size: 1.5em;
+                    font-size: 1.7em;
                     font-weight: bold;
                     margin-top: 20px;
+                    margin-bottom: 10px;
                 }
 
                 .userstory ul{

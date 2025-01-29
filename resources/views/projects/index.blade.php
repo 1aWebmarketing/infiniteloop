@@ -2,7 +2,7 @@
 
     <div class="mt-8 flex gap-4 items-center pb-4">
         <div>
-            <x-h1 class="">Projektübersicht</x-h1>
+            <x-h1 class="text-white">Projektübersicht</x-h1>
         </div>
     </div>
 

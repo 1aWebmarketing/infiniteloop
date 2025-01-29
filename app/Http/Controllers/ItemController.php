@@ -38,6 +38,8 @@ class ItemController extends Controller
             'title' => 'required|string',
             'project_id' => 'required',
             'story' => 'required|string',
+            'priority' => 'required',
+            'type' => 'required',
         ]);
 
         $fields['user_id'] = auth()->id();
