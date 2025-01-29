@@ -1,0 +1,69 @@
+name: Deploy Laravel Application to Production Server
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: 8.3
+
+    - name: Install Composer Dependencies
+      run: composer install --optimize-autoloader --no-dev --no-progress --no-interaction --prefer-dist
+
+    - name: Install Node
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20'
+
+    - name: Install NPM Dependencies
+      run: npm install
+
+    - name: Build NPM Assets
+      run: npm run build
+
+    - name: Flushing remote folder except .env and storage
+      continue-on-error: true
+      uses: appleboy/ssh-action@v0.1.6
+      with:
+        host: ${{ vars.SSH_HOST }}
+        username: ${{ vars.SSH_USER }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        script: |
+          cd ${{ vars.SSH_PATH }}
+          find . -mindepth 1 ! -path './storage/*' ! -name '.env' ! -name 'storage' -exec rm -rf {} +
+
+    - name: Synchronize Files To Server
+      uses: easingthemes/ssh-deploy@v2.1.5
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        SOURCE: "."
+        REMOTE_HOST: ${{ vars.SSH_HOST }}
+        REMOTE_USER: ${{ vars.SSH_USER }}
+        TARGET: ${{ vars.SSH_PATH }}
+
+    - name: Run Remote/Artisan Commands
+      uses: appleboy/ssh-action@v0.1.6
+      with:
+        host: ${{ vars.SSH_HOST }}
+        username: ${{ vars.SSH_USER }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        script: |
+          cd ${{ vars.SSH_PATH }}
+          php83 artisan about
+          php83 artisan migrate --force
+          php83 artisan optimize:clear
+          php83 artisan storage:link

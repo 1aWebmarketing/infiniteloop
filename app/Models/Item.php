@@ -11,6 +11,7 @@ class Item extends Model
         'project_id',
         'title',
         'story',
+        'status',
         'priority',
         'type',
         'voting'

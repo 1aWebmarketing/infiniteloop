@@ -20,6 +20,7 @@ return new class extends Migration
 
             $table->string('title');
             $table->text('story');
+            $table->string('status')->default('CREATED');
             $table->string('priority')->default('LOW');
             $table->string('type')->default('TASK');
             $table->integer('voting')->default(0);

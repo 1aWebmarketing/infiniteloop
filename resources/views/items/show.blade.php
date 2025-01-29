@@ -16,8 +16,14 @@
     </div>
 
     <x-box>
-        <p>Von: {{ $item->user->name }} am {{ $item->created_at->format('d.m.Y H:i') }}</p>
-        {!! $item->styledStory() !!}
+        <div class="mb-2 pb-2 border-b">
+            <p class="text-sm">Von: {{ $item->user->name }} am {{ $item->created_at->format('d.m.Y H:i') }}</p>
+            <p class="text-sm text-gray-500">Status: {{ $item->status }}</p>
+        </div>
+
+        <div class="">
+            {!! $item->styledStory() !!}
+        </div>
     </x-box>
 
     @foreach($item->comments as $comment)
