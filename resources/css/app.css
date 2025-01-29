@@ -1,3 +1,47 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root{
+    --notification-time: 4s;
+}
+
+/* Bottom border animation */
+@keyframes border-bottom {
+    from {
+        width: 100%;
+    }
+    to {
+        width: 0%;
+    }
+}
+
+@keyframes fade-out {
+    from {
+        opacity: 1;
+        height: 40px;
+    }
+    to {
+        opacity: 0;
+        height: 0;
+        padding: 0;
+    }
+}
+
+/* Notification bottom border animation */
+.border-bottom-animation {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 5px;
+    background-color: rgba(0,0,0,0.3);
+    animation: border-bottom var(--notification-time) linear forwards;
+    width: 100%;
+}
+
+/* Fade out and disappear after 4 seconds */
+.dismissable-notification {
+    animation: fade-out 0.2s linear forwards;
+    animation-delay: var(--notification-time);
+    transition: all 200ms;
+}

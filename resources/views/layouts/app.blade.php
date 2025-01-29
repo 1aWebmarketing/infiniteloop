@@ -16,6 +16,19 @@
         <x-head.tinymce-config/>
     </head>
     <body class="font-sans antialiased" style="background-color: #4158D0; background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);">
+        @if (session('error'))
+            <div class="dismissable-notification w-full bg-red-700 px-2 py-3 text-white text-center relative">
+                {{ session('error') }}
+                <div class="border-bottom-animation"></div>
+            </div>
+        @endif
+        @if (session('success'))
+            <div class="dismissable-notification w-full bg-green-700 px-2 py-3 text-white text-center relative">
+                {{ session('success') }}
+                <div class="border-bottom-animation"></div>
+            </div>
+        @endif
+
         <div class="min-h-screen">
             <div class="max-w-7xl mx-auto py-4">
                 <ul class="flex gap-4 justify-between items-center text-white">

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Item;
 use App\Models\Project;
-use Illuminate\Support\Facades\Cache;
+use App\Services\ItemUpvoteService;
 
 class ItemController extends Controller
 {
@@ -57,22 +57,22 @@ class ItemController extends Controller
 
     public function upvote(Item $item)
     {
-        if( Cache::get('user-' . auth()->id() . '-item-' . $item->id) )
+        if( ItemUpvoteService::canUpvote(auth()->user(), $item) )
         {
+            ItemUpvoteService::upvote(auth()->user(), $item);
+
             return redirect()
                 ->route('projects.show', [
                     'project' => $item->project->id,
-                ]);
+                ])
+                ->with('success', 'Upvoted successfully');
         }
-
-        $item->increment('voting');
-
-        Cache::put('user-' . auth()->id() . '-item-' . $item->id, 1);
 
         return redirect()
             ->route('projects.show', [
                 'project' => $item->project->id,
-            ]);
+            ])
+            ->with('error', 'Already voted');
     }
 
     public function destroy(Request $request, Project $project, Item $item)
