@@ -13,6 +13,9 @@ return [
     | a conventional file to locate the various service credentials.
     |
     */
+    'registration' => [
+        'allowed_domain' => env('ALLOWED_REGISTRATION_DOMAIN')
+    ],
 
     'postmark' => [
         'token' => env('POSTMARK_TOKEN'),
