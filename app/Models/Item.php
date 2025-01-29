@@ -32,6 +32,15 @@ class Item extends Model
         return $this->hasMany(Comment::class);
     }
 
+    public function statusPillHtml()
+    {
+        return match($this->status){
+            'CREATED' => '<span class="rounded px-2 py-1 text-sm font-bold bg-purple-100 text-purple-500">' . $this->status . '</span>',
+            'IN_PROGRESS' => '<span class="rounded px-2 py-1 text-sm font-bold bg-green-100 text-green-500">' . $this->status . '</span>',
+            'DONE' => '<span class="rounded px-2 py-1 text-sm font-bold bg-gray-100 text-gray-500">' . $this->status . '</span>',
+        };
+    }
+
     public function typePillHtml()
     {
         return match($this->type){

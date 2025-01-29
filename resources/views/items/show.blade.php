@@ -9,16 +9,21 @@
             <x-h1 class="text-white drop-shadow-lg">{{ $item->title }}</x-h1>
 
             <ul class="flex gap-4 mt-2">
+                <li>{!! $item->statusPillHtml() !!}</li>
                 <li>{!! $item->typePillHtml() !!}</li>
                 <li>{!! $item->priorityPillHtml() !!}</li>
             </ul>
+        </div>
+        <div class="flex-grow"></div>
+
+        <div>
+            <livewire-item-status-selector :item="$item"/>
         </div>
     </div>
 
     <x-box>
         <div class="mb-2 pb-2 border-b">
             <p class="text-sm">Von: {{ $item->user->name }} am {{ $item->created_at->format('d.m.Y H:i') }}</p>
-            <p class="text-sm text-gray-500">Status: {{ $item->status }}</p>
         </div>
 
         <div class="">

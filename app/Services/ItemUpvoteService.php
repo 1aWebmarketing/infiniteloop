@@ -23,4 +23,10 @@ class ItemUpvoteService
         $item->increment('voting');
         Cache::put('user-' . $user->id . '-item-' . $item->id, 1);
     }
+
+    public static function downvote(User $user, Item $item)
+    {
+        $item->decrement('voting');
+        Cache::pull('user-' . $user->id . '-item-' . $item->id, 1);
+    }
 }

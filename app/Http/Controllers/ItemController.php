@@ -46,8 +46,9 @@ class ItemController extends Controller
 
         $fields['user_id'] = auth()->id();
 
-        Item::create($fields);
+        $item = Item::create($fields);
 
+        ItemUpvoteService::upvote(auth()->user(), $item);
 
         return redirect()
             ->route('projects.show', [
@@ -68,11 +69,13 @@ class ItemController extends Controller
                 ->with('success', 'Upvoted successfully');
         }
 
+        ItemUpvoteService::downvote(auth()->user(), $item);
+
         return redirect()
             ->route('projects.show', [
                 'project' => $item->project->id,
             ])
-            ->with('error', 'Already voted');
+            ->with('error', 'Vote removed');
     }
 
     public function destroy(Request $request, Project $project, Item $item)

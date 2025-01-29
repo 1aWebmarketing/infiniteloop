@@ -24,10 +24,10 @@
                     <form action="{{ route('items.upvote', ['item' => $item->id]) }}" method="POST">
                         @csrf
                         <button class="hover:cursor-pointer">
-                            @if( Cache::get('user-' . auth()->id() . '-item-' . $item->id) )
-                                <x-icons.up-arrow-green width="25px" height="25px" />
-                            @else
+                            @if( canUpvote(auth()->user(), $item) )
                                 <x-icons.up-arrow width="25px" height="25px" />
+                            @else
+                                <x-icons.up-arrow-green width="25px" height="25px" />
                             @endif
                         </button>
                     </form>
@@ -35,11 +35,11 @@
                 </div>
 
                 <div class="flex-grow py-2">
-                    <p class="text-xl font-bold mb-2"><a href="{{ route('items.show', ['project' => $project->id, 'item' => $item->id]) }}">{{ $item->title }} <span class="text-xs text-gray-500">{{ $item->status }}</span></a></p>
+                    <p class="text-xl font-bold mb-2"><a href="{{ route('items.show', ['project' => $project->id, 'item' => $item->id]) }}">{{ $item->title }} <span class="text-xs text-gray-500">{{ formatDateTime($item->created_at) }}</span></a></p>
                     <ul class="flex gap-4 items-center">
+                        <li>{!! $item->statusPillHtml() !!}</li>
                         <li>{!! $item->typePillHtml() !!}</li>
                         <li>{!! $item->priorityPillHtml() !!}</li>
-                        <li class="text-gray-500 text-sm">{{ formatDateTime($item->created_at) }}</li>
                     </ul>
                 </div>
                 <div class="pt-2">
