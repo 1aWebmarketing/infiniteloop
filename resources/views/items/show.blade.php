@@ -25,7 +25,7 @@
 
     <x-box>
         <div class="mb-2 pb-2 border-b">
-            <p class="text-sm">Von: {{ $item->user->name }} am {{ $item->created_at->format('d.m.Y H:i') }}</p>
+            <x-author-info :user="$item->user" :date="$item->created_at"/>
         </div>
 
         <div class="">
@@ -35,10 +35,10 @@
 
     @foreach($item->comments as $comment)
         <x-box>
-            <p class="text-gray-400">{{ $comment->user->name }} &lt;{{ $comment->user->email }}&gt; am {{ $comment->created_at->format('d.m.Y H:i') }}</p>
+            <x-author-info :user="$comment->user" :date="$comment->created_at"/>
 
             <div>
-                {{ $comment->text }}
+                {!! nl2br(addslashes($comment->text)) !!}
             </div>
         </x-box>
     @endforeach
