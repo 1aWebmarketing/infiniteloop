@@ -31,8 +31,6 @@
                     @endcan
                 </div>
 
-
-
                 <p class="text-gray-400 my-2">{{ $project->description }}</p>
 
                 <ul class="flex gap-4 mb-2">
@@ -43,6 +41,26 @@
                     <li class="flex gap-2">
                         <x-icons.comments width="1em"/>
                         {{ $project->total_comments }}
+                    </li>
+
+                    <li class="flex-grow"></li>
+
+                    <li class="rounded font-bold overflow-hidden flex group">
+                        <div class="px-2 py-1 text-sm bg-green-100 text-green-600 flex gap-1">
+                            <span class="group-hover:block hidden">In Progress</span>
+                            <span class="group-hover:hidden">P</span>
+                            {{ $project->activeItemsCount }}
+                        </div>
+                        <div class="px-2 py-1 text-sm bg-purple-100 text-purple-600 flex gap-1">
+                            <span class="group-hover:block hidden">Open</span>
+                            <span class="group-hover:hidden">O</span>
+                            {{ $project->createdItemsCount }}
+                        </div>
+                        <div class="px-2 py-1 text-sm bg-gray-100 text-gray-600 flex gap-1">
+                            <span class="group-hover:block hidden">Done</span>
+                            <span class="group-hover:hidden">D</span>
+                            {{ $project->doneItemsCount }}
+                        </div>
                     </li>
                 </ul>
 

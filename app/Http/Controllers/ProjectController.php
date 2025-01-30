@@ -20,6 +20,9 @@ class ProjectController extends Controller
         // Add the total comment count for each project
         $projects->each(function($project) {
             $project->total_comments = $project->items->sum(fn($item) => $item->comments->count());
+            $project->activeItemsCount = $project->items()->statusInProgress()->count();
+            $project->createdItemsCount = $project->items()->statusCreated()->count();
+            $project->doneItemsCount = $project->items()->statusDone()->count();
         });
 
         return view('projects/index', [
@@ -31,29 +34,16 @@ class ProjectController extends Controller
     {
         view()->share('metaTitle', $project->name);
 
-        $caseStatement = "CASE priority
-            WHEN 'LOW' THEN 1
-            WHEN 'MEDIUM' THEN 2
-            WHEN 'HIGH' THEN 3
-            WHEN 'CRITICAL' THEN 4
-            ELSE 5 END";
-
         $activeItems = $project->items()
-            ->where('status', 'IN_PROGRESS')
-            ->orderByRaw($caseStatement . ' DESC')
-            ->orderByDesc('voting')
+            ->statusInProgress()
             ->get();
 
         $createdItems = $project->items()
-            ->where('status', 'CREATED')
-            ->orderByRaw($caseStatement . ' DESC')
-            ->orderByDesc('voting')
+            ->statusCreated()
             ->get();
 
         $doneItems = $project->items()
-            ->where('status', 'DONE')
-            ->orderByDesc('voting')
-            ->orderByRaw($caseStatement . ' DESC')
+            ->statusDone()
             ->get();
 
         return view('projects/show', [

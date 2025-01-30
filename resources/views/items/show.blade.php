@@ -46,6 +46,7 @@
     <x-h2 class="py-2 text-white">Kommentieren</x-h2>
 
     <x-box>
+        <x-author-info :user="auth()->user()" :date="now()"/>
         <form action="{{ route('comments.store', ['item' => $item->id]) }}" method="POST">
             @csrf
 

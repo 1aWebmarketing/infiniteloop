@@ -6,6 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Item extends Model
 {
+    public static $caseStatement = "CASE priority
+        WHEN 'LOW' THEN 1
+        WHEN 'MEDIUM' THEN 2
+        WHEN 'HIGH' THEN 3
+        WHEN 'CRITICAL' THEN 4
+        ELSE 5 END";
+
     protected $fillable = [
         'user_id',
         'project_id',
@@ -30,6 +37,27 @@ class Item extends Model
     public function comments()
     {
         return $this->hasMany(Comment::class);
+    }
+
+    public function scopeStatusInProgress($query)
+    {
+        return $query->where('status', 'IN_PROGRESS')
+             ->orderByRaw(self::$caseStatement . ' DESC')
+             ->orderByDesc('voting');
+    }
+
+    public function scopeStatusCreated($query)
+    {
+        return $query->where('status', 'CREATED')
+             ->orderByRaw(self::$caseStatement . ' DESC')
+             ->orderByDesc('voting');
+    }
+
+    public function scopeStatusDone($query)
+    {
+        return $query->where('status', 'DONE')
+             ->orderByRaw(self::$caseStatement . ' DESC')
+             ->orderByDesc('voting');
     }
 
     public function statusPillHtml()
