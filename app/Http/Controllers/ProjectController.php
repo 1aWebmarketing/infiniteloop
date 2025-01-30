@@ -27,11 +27,37 @@ class ProjectController extends Controller
 
     public function show(Project $project)
     {
-        $items = $project->items()->orderByDesc('voting')->get();
+        $caseStatement = "CASE priority
+            WHEN 'LOW' THEN 1
+            WHEN 'MEDIUM' THEN 2
+            WHEN 'HIGH' THEN 3
+            WHEN 'CRITICAL' THEN 4
+            ELSE 5 END";
+
+        $activeItems = $project->items()
+            ->where('status', 'IN_PROGRESS')
+            ->orderByRaw($caseStatement . ' DESC')
+            ->orderByDesc('voting')
+            ->get();
+
+        $createdItems = $project->items()
+            ->where('status', 'CREATED')
+            ->orderByRaw($caseStatement . ' DESC')
+            ->orderByDesc('voting')
+            ->get();
+
+        $doneItems = $project->items()
+            ->where('status', 'DONE')
+            ->orderByDesc('voting')
+            ->orderByRaw($caseStatement . ' DESC')
+            ->get();
 
         return view('projects/show', [
             'project' => $project,
-            'items' => $items,
+
+            'activeItems' => $activeItems,
+            'createdItems' => $createdItems,
+            'doneItems' => $doneItems,
         ]);
     }
 

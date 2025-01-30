@@ -39,7 +39,7 @@ class RegisteredUserController extends Controller
                 'lowercase',
                 'email',
                 'max:255',
-                'unique:'.User::class,
+                'unique:' . User::class,
                 function ($attribute, $value, $fail) use ($allowedDomain) {
                     if (!str_ends_with($value, $allowedDomain)) {
                         $fail("The email must belong to the allowed domain: $allowedDomain.");
