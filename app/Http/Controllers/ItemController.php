@@ -11,6 +11,8 @@ class ItemController extends Controller
 {
     public function show(Request $request, Project $project, Item $item)
     {
+        view()->share('metaTitle', $item->title);
+
         return view('items/show', [
             'item' => $item
         ]);
@@ -18,6 +20,8 @@ class ItemController extends Controller
 
     public function create(Request $request, Project $project)
     {
+        view()->share('metaTitle', 'Item erstellen');
+
         $item = new Item;
         $item->project_id = $project->id;
         $item->story = $project->template;

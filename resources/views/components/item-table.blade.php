@@ -20,7 +20,8 @@
             <li>{!! $item->priorityPillHtml() !!}</li>
         </ul>
     </div>
-    <div class="pt-2">
+
+    <div class="flex-shrink-0 pt-2">
         <p>{{ $item->comments()->count() }} Kommentare</p>
         <a href="{{ route('items.show', ['project' => $project->id, 'item' => $item->id]) }}" class="text-sm flex gap-2 items-center font-medium text-gray-600">Details ansehen <x-icons.right-arrow width="1em" height="1em"/></a>
 

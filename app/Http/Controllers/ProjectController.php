@@ -11,6 +11,8 @@ class ProjectController extends Controller
 {
     public function index()
     {
+        view()->share('metaTitle', 'Projects');
+
         $projects = Project::withCount('items') // Count items
                    ->with('items.comments') // Eager load items and their comments
                    ->get();
@@ -27,6 +29,8 @@ class ProjectController extends Controller
 
     public function show(Project $project)
     {
+        view()->share('metaTitle', $project->name);
+
         $caseStatement = "CASE priority
             WHEN 'LOW' THEN 1
             WHEN 'MEDIUM' THEN 2

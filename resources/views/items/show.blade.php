@@ -1,8 +1,9 @@
 <x-app-layout>
-
     <div class="mt-8 flex gap-4 items-center pb-4">
-        <div class="bg-gray-100 rounded-full w-[100px] h-[100px] p-2 shadow border border-gray-400">
-            <img src="{{ $item->project->getLogoUrl() }}">
+        <div>
+            <div class="bg-gray-100 rounded-full w-[100px] h-[100px] p-2 shadow border border-gray-400">
+                <img src="{{ $item->project->getLogoUrl() }}">
+            </div>
         </div>
         <div>
             <a class="text-white text-xs drop-shadow hover:underline" href="{{ route('projects.show', ['project' => $item->project->id]) }}">Zurück zu {{ $item->project->name }}</a>
@@ -14,9 +15,10 @@
                 <li>{!! $item->priorityPillHtml() !!}</li>
             </ul>
         </div>
-        <div class="flex-grow"></div>
+        <div class
+        ="flex-grow"></div>
 
-        <div>
+        <div class="flex-shrink-0">
             <livewire-item-status-selector :item="$item"/>
         </div>
     </div>
