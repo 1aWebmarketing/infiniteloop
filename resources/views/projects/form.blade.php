@@ -17,6 +17,12 @@
             <x-input-error :messages="$errors->get('name')" />
 
             <x-h2 class="my-4">Logo</x-h2>
+            @if( $project->logo )
+                <div class="bg-gray-100 mb-2 rounded-full w-[100px] h-[100px] p-2 shadow border border-gray-400 overflow-hidden">
+                    <img src="{{ $project->getLogoUrl() }}">
+                </div>
+            @endif
+
             <input type="file" name="file">
 
             <x-h2 class="my-4">Projektbeschreibung</x-h2>
