@@ -13,16 +13,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Switch to Laravel folder
-        continue-on-error: false
-        uses: appleboy/ssh-action@v0.1.6
-        with:
-          host: ${{ vars.SSH_HOST }}
-          username: ${{ vars.SSH_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            cd ${{ vars.SSH_PATH }}
-
       - name: Flushing remote folder except .env and storage
         continue-on-error: true
         uses: appleboy/ssh-action@v0.1.6
@@ -31,4 +21,10 @@ jobs:
           username: ${{ vars.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            find . -mindepth 1 ! -path './storage/*' ! -name '.env' ! -name 'storage' -exec rm -rf {} +
+            if [ -d "${{ vars.SSH_PATH }}" ]; then
+              cd ${{ vars.SSH_PATH }}
+              find . -mindepth 1 ! -path './storage/*' ! -name '.env' ! -name 'storage' -exec rm -rf {} +
+            else
+              echo "Error: Directory ${{ vars.SSH_PATH }} does not exist!" >&2
+              exit 1
+            fi
