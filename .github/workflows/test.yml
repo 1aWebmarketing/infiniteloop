@@ -1,0 +1,34 @@
+name: Deploy Laravel Application to Production Server v2
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Switch to Laravel folder
+        continue-on-error: false
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ vars.SSH_HOST }}
+          username: ${{ vars.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd ${{ vars.SSH_PATH }}
+
+      - name: Flushing remote folder except .env and storage
+        continue-on-error: true
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ vars.SSH_HOST }}
+          username: ${{ vars.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            find . -mindepth 1 ! -path './storage/*' ! -name '.env' ! -name 'storage' -exec rm -rf {} +
