@@ -13,6 +13,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
+    - name: Check if remote folder exists
+      continue-on-error: false
+      uses: appleboy/ssh-action@v0.1.6
+      with:
+        host: ${{ vars.SSH_HOST }}
+        username: ${{ vars.SSH_USER }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        script: |
+          if [ ! -d "${{ vars.SSH_PATH }}" ]; then
+            echo "Error: Remote Directory ${{ vars.SSH_PATH }} does not exist!" >&2
+            exit 1
+          fi
+
     - name: Checkout Code
       uses: actions/checkout@v3
 
