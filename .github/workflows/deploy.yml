@@ -36,7 +36,7 @@ jobs:
       run: npm run build
 
     - name: Flushing remote folder except .env and storage
-      continue-on-error: true
+      continue-on-error: false
       uses: appleboy/ssh-action@v0.1.6
       with:
         host: ${{ vars.SSH_HOST }}
