@@ -37,12 +37,13 @@
         <div class="mb-2 pb-2 border-b flex justify-between items-center">
             <x-author-info :user="$item->user" :date="$item->created_at"/>
 
-            @if($editable)
-                <div class="flex gap-4 items-center">
-                    <button x-data=""
-                            x-on:click.prevent="$dispatch('open-modal', 'markdown')"
-                            type="button"><x-icons.markdown width="1.5em"/></button>
 
+            <div class="flex gap-4 items-center">
+                <button x-data=""
+                        x-on:click.prevent="$dispatch('open-modal', 'markdown')"
+                        type="button"><x-icons.markdown width="1.5em"/></button>
+
+                @if($editable)
                     <a href="{{ route('items.edit', ['project' => $item->project_id, 'item' => $item]) }}"><x-icons.edit width="1.5em"/></a>
 
                     <form action="{{ route('items.destroy', ['project' => $item->project_id, 'item' => $item->id]) }}" method="POST">
@@ -50,8 +51,8 @@
                         @method('DELETE')
                         <button class="text-sm flex gap-2 items-center font-medium text-gray-600"><x-icons.delete width="1.5em" height="1.5em"/></button>
                     </form>
-                </div>
-            @endif
+                @endif
+            </div>
         </div>
 
         <div class="">
