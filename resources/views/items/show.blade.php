@@ -15,13 +15,23 @@
                 <li>{!! $item->priorityPillHtml() !!}</li>
             </ul>
         </div>
-        <div class
-        ="flex-grow"></div>
+        <div class="flex-grow"></div>
 
         <div class="flex-shrink-0">
             <livewire-item-status-selector :item="$item"/>
         </div>
     </div>
+
+
+    <!-- Modal toggle -->
+
+    <x-modal name="markdown">
+        <div class="p-4">
+            <x-h2 class="mb-4">Markdown</x-h2>
+            <x-textarea class="h-[300px]">{{ $item->translated }}</x-textarea>
+        </div>
+    </x-modal>
+
 
     <x-box>
         <div class="mb-2 pb-2 border-b flex justify-between items-center">
@@ -29,6 +39,10 @@
 
             @if($editable)
                 <div class="flex gap-4 items-center">
+                    <button x-data=""
+                            x-on:click.prevent="$dispatch('open-modal', 'markdown')"
+                            type="button"><x-icons.markdown width="1.5em"/></button>
+
                     <a href="{{ route('items.edit', ['project' => $item->project_id, 'item' => $item]) }}"><x-icons.edit width="1.5em"/></a>
 
                     <form action="{{ route('items.destroy', ['project' => $item->project_id, 'item' => $item->id]) }}" method="POST">

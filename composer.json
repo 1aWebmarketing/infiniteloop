@@ -12,8 +12,10 @@
         "php": "^8.2",
         "laravel/framework": "^11.31",
         "laravel/tinker": "^2.9",
+        "league/html-to-markdown": "^5.1",
         "livewire/livewire": "^3.5",
         "oneawebmarketing/laravel-changelog": "^1.0",
+        "openai-php/laravel": "^0.10.2",
         "tinymce/tinymce": "^7.6"
     },
     "require-dev": {

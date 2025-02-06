@@ -18,6 +18,7 @@ class Item extends Model
         'project_id',
         'title',
         'story',
+        'translated',
         'status',
         'priority',
         'type',
@@ -108,6 +109,10 @@ class Item extends Model
                 .userstory ul{
                     list-style: disc;
                     padding-left: 1em;
+                    margin: 10px 0;
+                }
+
+                .userstory p{
                     margin: 10px 0;
                 }
             </style>

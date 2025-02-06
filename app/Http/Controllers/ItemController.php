@@ -2,16 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\ChatGPTService;
 use Illuminate\Http\Request;
 use App\Models\Item;
 use App\Models\Project;
 use App\Services\ItemUpvoteService;
+use League\HTMLToMarkdown\HtmlConverter;
 
 class ItemController extends Controller
 {
     public function show(Request $request, Project $project, Item $item)
     {
         view()->share('metaTitle', $item->title);
+
+        $converter = new HtmlConverter(['header_style' => 'atx']);
+        $markdown = $converter->convert($item->story);
+        $item->markdown = preg_replace('/\\\\([\\[\\]])/', '$1', $markdown);
 
         return view('items/show', [
             'item' => $item,
@@ -63,6 +69,7 @@ class ItemController extends Controller
         ]);
 
         $fields['user_id'] = auth()->id();
+        $fields['translated'] = ChatGPTService::translateAndMarkdown($fields['story']);
 
         $item = Item::create($fields);
 
@@ -85,6 +92,8 @@ class ItemController extends Controller
             'priority' => 'required',
             'type' => 'required',
         ]);
+
+        $fields['translated'] = ChatGPTService::translateAndMarkdown($fields['story']);
 
         $item->update($fields);
 
