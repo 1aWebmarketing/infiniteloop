@@ -4,6 +4,10 @@ Updates should follow the [Keep a CHANGELOG](https://keepachangelog.com/) princi
 
 ## [Unreleased]
 
+### Added
+
+- Items can now be edited from owners or admin
+
 ## [1.0.2] - 30.01.2025
 
 ### Added

@@ -22,17 +22,6 @@
     </div>
 
     <div class="flex-shrink-0 pt-2">
-        <p>{{ $item->comments()->count() }} Kommentare</p>
-        <a href="{{ route('items.show', ['project' => $project->id, 'item' => $item->id]) }}" class="text-sm flex gap-2 items-center font-medium text-gray-600">Details ansehen <x-icons.right-arrow width="1em" height="1em"/></a>
-
-        @can('edit-item', $item)
-            <div class="mt-4">
-                <form action="{{ route('items.destroy', ['project' => $project->id, 'item' => $item->id]) }}" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <button class="text-sm flex gap-2 items-center font-medium text-gray-600">Löschen <x-icons.right-arrow width="1em" height="1em"/></button>
-                </form>
-            </div>
-        @endcan
+        <p class="flex gap-1 items-center"><x-icons.comments width="1em"/> {{ $item->comments()->count() }}</p>
     </div>
 </div>

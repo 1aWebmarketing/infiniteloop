@@ -14,7 +14,8 @@ class ItemController extends Controller
         view()->share('metaTitle', $item->title);
 
         return view('items/show', [
-            'item' => $item
+            'item' => $item,
+            'editable' => $request->user()->can('update', $item),
         ]);
     }
 
@@ -32,6 +33,19 @@ class ItemController extends Controller
         <p dir="auto">[WAS MUSS ERFOLGREICH PASSIEREN, DAMIT DIESE USER STORY ABGESCHLOSSEN WERDEN KANN]</p>
         <h2 dir="auto">Zus&auml;tzliche Informationen oder Abh&auml;ngigkeiten:</h2>
         <p>[MEHR INFORMATIONEN]</p>';
+
+        return view('items/form', [
+            'item' => $item,
+        ]);
+    }
+
+    public function edit(Request $request, Project $project, Item $item)
+    {
+        if( $request->user()->cannot('update', $item) ) {
+            abort(403);
+        }
+
+        view()->share('metaTitle', 'Item bearbeiten');
 
         return view('items/form', [
             'item' => $item,
@@ -59,6 +73,26 @@ class ItemController extends Controller
                 'project' => $fields['project_id']
             ]);
     }
+    public function update(Request $request, Project $project, Item $item)
+    {
+        if( $request->user()->cannot('update', $item) ) {
+            abort(403);
+        }
+
+        $fields = $request->validate([
+            'title' => 'required|string',
+            'story' => 'required|string',
+            'priority' => 'required',
+            'type' => 'required',
+        ]);
+
+        $item->update($fields);
+
+        return redirect()
+            ->route('projects.show', [
+                'project' => $item->project_id,
+            ]);
+    }
 
     public function upvote(Item $item)
     {
@@ -84,6 +118,10 @@ class ItemController extends Controller
 
     public function destroy(Request $request, Project $project, Item $item)
     {
+        if( $request->user()->cannot('delete', $item) ) {
+            abort(403);
+        }
+
         $item->delete();
 
         return redirect()

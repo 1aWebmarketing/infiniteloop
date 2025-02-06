@@ -24,13 +24,26 @@
     </div>
 
     <x-box>
-        <div class="mb-2 pb-2 border-b">
+        <div class="mb-2 pb-2 border-b flex justify-between items-center">
             <x-author-info :user="$item->user" :date="$item->created_at"/>
+
+            @if($editable)
+                <div class="flex gap-4 items-center">
+                    <a href="{{ route('items.edit', ['project' => $item->project_id, 'item' => $item]) }}"><x-icons.edit width="1.5em"/></a>
+
+                    <form action="{{ route('items.destroy', ['project' => $item->project_id, 'item' => $item->id]) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button class="text-sm flex gap-2 items-center font-medium text-gray-600"><x-icons.delete width="1.5em" height="1.5em"/></button>
+                    </form>
+                </div>
+            @endif
         </div>
 
         <div class="">
             {!! $item->styledStory() !!}
         </div>
+
     </x-box>
 
     @foreach($item->comments as $comment)
@@ -47,6 +60,7 @@
 
     <x-box>
         <x-author-info :user="auth()->user()" :date="now()"/>
+
         <form action="{{ route('comments.store', ['item' => $item->id]) }}" method="POST">
             @csrf
 

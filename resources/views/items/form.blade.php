@@ -11,7 +11,7 @@
     </div>
 
     <x-box>
-        <form action="{{ $item->exists ? route('items.update', $item->id) : route('items.store', ['project' => $item->project->id]) }}" method="POST">
+        <form action="{{ $item->exists ? route('items.update', ['project' => $item->project_id, 'item' =>$item->id]) : route('items.store', ['project' => $item->project->id]) }}" method="POST">
             @csrf
             @if($item->exists)
                 @method('PUT')

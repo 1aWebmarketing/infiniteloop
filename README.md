@@ -1,8 +1,8 @@
-# suggestr
+# infiniteloop
 
 Use this app to gather UserStories from inside your company. Let users upvote ideas and categories ideas by type and prio.
 
-![image](https://raw.githubusercontent.com/1aWebmarketing/suggestr/refs/heads/main/Screenshots/screen-1.png)
+![image](https://raw.githubusercontent.com/1aWebmarketing/infiniteloop/refs/heads/main/Screenshots/screen-1.png)
 
 ## Registration Domain Control
 
@@ -19,7 +19,7 @@ Missing parameters are marked with `*****`
 
 ### Mockup data
 
-Use `php artisan migrate:fresh --seed` to get some mockup data into suggestr.
+Use `php artisan migrate:fresh --seed` to get some mockup data into infiniteloop.
 
 ### Naming Conventions
 
@@ -39,8 +39,8 @@ This ensures transparency and provides a clear history of the project's evolutio
 
 ## Security Vulnerabilities
 
-If you discover any security vulnerabilities within adfinity, feel free to PR or drop an email to suggestr@0x25.de.
+If you discover any security vulnerabilities within adfinity, feel free to PR or drop an email to infiniteloop@0x25.de.
 
 ## License
 
-suggestr is open-source :-)
+infiniteloop is open-source :-)

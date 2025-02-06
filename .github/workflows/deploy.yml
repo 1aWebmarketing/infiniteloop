@@ -1,7 +1,6 @@
 name: Deploy Laravel Application to Production Server v2
-# Controls when the workflow will run
+
 on:
-  # Triggers the workflow on push or pull request events but only for the main branch
   push:
     branches: [ main ]
 
@@ -59,7 +58,7 @@ jobs:
         script: |
           if [ -d "${{ vars.SSH_PATH }}" ]; then
             cd ${{ vars.SSH_PATH }}
-            find . -mindepth 1 ! -path './storage/*' ! -name '.env' ! -name 'storage' -exec rm -rf {} +
+
           else
             echo "Error: Directory ${{ vars.SSH_PATH }} does not exist!" >&2
             exit 1
