@@ -68,7 +68,4 @@
             </x-box>
         @endforeach
     </div>
-
-    <p class="text-center my-4 text-white"><a href="{{ route('projects.create') }}">Projekt anlegen</a></p>
-
 </x-app-layout>

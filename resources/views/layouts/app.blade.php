@@ -47,6 +47,9 @@
                         <a class="hover:text-gray-700 transition ease-in-out duration-150" href="{{ route('dashboard') }}">Home</a>
                     </li>
                     <li>
+                        <a class="hover:text-gray-700 transition ease-in-out duration-150" href="{{ route('projects.create') }}">Projekt anlegen</a>
+                    </li>
+                    <li>
                         <x-dropdown align="right" width="48">
                             <x-slot name="trigger">
                                 <button class="inline-flex items-center px-3 py-2 border border-transparent hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
@@ -76,8 +79,7 @@
                                     @csrf
 
                                     <x-dropdown-link :href="route('logout')"
-                                            onclick="event.preventDefault();
-                                                        this.closest('form').submit();">
+                                            onclick="event.preventDefault(); this.closest('form').submit();">
                                         {{ __('Log Out') }}
                                     </x-dropdown-link>
                                 </form>
@@ -87,12 +89,14 @@
                 </ul>
 
 
-
                 <!-- Page Content -->
                 <main>
                     {{ $slot }}
                 </main>
+
+                <p class="text-white text-sm text-center">{{ config('app.name') . ' ' . getAppVersion() }}</p>
             </div>
         </div>
+        @livewireScripts
     </body>
 </html>
