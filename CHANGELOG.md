@@ -4,9 +4,13 @@ Updates should follow the [Keep a CHANGELOG](https://keepachangelog.com/) princi
 
 ## [Unreleased]
 
+## [1.0.3] - 06.02.2025
+
 ### Added
 
 - Items can now be edited from owners or admin
+- Markdown preview for user stories
+- ChatGPT translation into english and markdown
 
 ## [1.0.2] - 30.01.2025
 
