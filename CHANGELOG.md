@@ -4,6 +4,12 @@ Updates should follow the [Keep a CHANGELOG](https://keepachangelog.com/) princi
 
 ## [Unreleased]
 
+## [1.0.4] - 11.02.2025
+
+### Added
+
+- Email verification required
+
 ## [1.0.3] - 06.02.2025
 
 ### Added

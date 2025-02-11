@@ -7,7 +7,7 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/', [ProjectController::class, 'index'])->name('dashboard');
 
     Route::get('/changelog', [PagesController::class, 'changelog'])->name('pages.changelog');
