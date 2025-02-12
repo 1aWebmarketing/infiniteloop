@@ -28,61 +28,67 @@
     <x-modal name="markdown">
         <div class="p-4">
             <x-h2 class="mb-4">Markdown</x-h2>
-            <x-textarea class="h-[300px]">{{ $item->translated }}</x-textarea>
+            <x-input-group :value="$item->translated['title']" />
+            <x-textarea class="h-[300px]">{{ $item->translated['story'] }}</x-textarea>
         </div>
     </x-modal>
 
 
-    <x-box>
-        <div class="mb-2 pb-2 border-b flex justify-between items-center">
-            <x-author-info :user="$item->user" :date="$item->created_at"/>
+    <div class="grid md:grid-cols-2 gap-4">
+        <div>
+            <x-box>
+                <div class="mb-2 pb-2 border-b flex justify-between items-center">
+                    <x-author-info :user="$item->user" :date="$item->created_at"/>
 
 
-            <div class="flex gap-4 items-center">
-                <button x-data=""
-                        x-on:click.prevent="$dispatch('open-modal', 'markdown')"
-                        type="button"><x-icons.markdown width="1.5em"/></button>
+                    <div class="flex gap-4 items-center">
+                        <button x-data=""
+                                x-on:click.prevent="$dispatch('open-modal', 'markdown')"
+                                type="button"><x-icons.markdown width="1.5em"/></button>
 
-                @if($editable)
-                    <a href="{{ route('items.edit', ['project' => $item->project_id, 'item' => $item]) }}"><x-icons.edit width="1.5em"/></a>
+                        @if($editable)
+                            <a href="{{ route('items.edit', ['project' => $item->project_id, 'item' => $item]) }}"><x-icons.edit width="1.5em"/></a>
 
-                    <form action="{{ route('items.destroy', ['project' => $item->project_id, 'item' => $item->id]) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button class="text-sm flex gap-2 items-center font-medium text-gray-600"><x-icons.delete width="1.5em" height="1.5em"/></button>
-                    </form>
-                @endif
-            </div>
+                            <form action="{{ route('items.destroy', ['project' => $item->project_id, 'item' => $item->id]) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button class="text-sm flex gap-2 items-center font-medium text-gray-600"><x-icons.delete width="1.5em" height="1.5em"/></button>
+                            </form>
+                        @endif
+                    </div>
+                </div>
+
+                <div class="">
+                    {!! $item->styledStory() !!}
+                </div>
+            </x-box>
         </div>
 
-        <div class="">
-            {!! $item->styledStory() !!}
+        <div>
+            @foreach($item->comments as $comment)
+                <x-box>
+                    <x-author-info :user="$comment->user" :date="$comment->created_at"/>
+
+                    <div>
+                        {!! nl2br(addslashes($comment->text)) !!}
+                    </div>
+                </x-box>
+            @endforeach
+
+            <x-h2 class="py-2 text-white">Kommentieren</x-h2>
+
+            <x-box>
+                <x-author-info :user="auth()->user()" :date="now()"/>
+
+                <form action="{{ route('comments.store', ['item' => $item->id]) }}" method="POST">
+                    @csrf
+
+                    <x-textarea-group name="text"></x-textarea-group>
+
+                    <x-primary-button>Absenden</x-primary-button>
+                </form>
+            </x-box>
         </div>
-
-    </x-box>
-
-    @foreach($item->comments as $comment)
-        <x-box>
-            <x-author-info :user="$comment->user" :date="$comment->created_at"/>
-
-            <div>
-                {!! nl2br(addslashes($comment->text)) !!}
-            </div>
-        </x-box>
-    @endforeach
-
-    <x-h2 class="py-2 text-white">Kommentieren</x-h2>
-
-    <x-box>
-        <x-author-info :user="auth()->user()" :date="now()"/>
-
-        <form action="{{ route('comments.store', ['item' => $item->id]) }}" method="POST">
-            @csrf
-
-            <x-textarea-group name="text"></x-textarea-group>
-
-            <x-primary-button>Absenden</x-primary-button>
-        </form>
-    </x-box>
+    </div>
 
 </x-app-layout>

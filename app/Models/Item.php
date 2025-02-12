@@ -25,6 +25,10 @@ class Item extends Model
         'voting'
     ];
 
+    protected $casts = [
+        'translated' => 'array',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);

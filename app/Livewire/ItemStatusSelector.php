@@ -18,6 +18,11 @@ class ItemStatusSelector extends Component
 
     public function updatedStatus()
     {
+        $this->item->comments()->create([
+            'user_id' => auth()->id(),
+            'text' => $this->item->status . ' -> ' . $this->status,
+        ]);
+
         $this->item->update([
             'status' => $this->status
         ]);
@@ -27,9 +32,7 @@ class ItemStatusSelector extends Component
     {
         return <<<'HTML'
         <div>
-            <x-select-group name="status" wire:model.change="status" options='CREATED:CREATED;IN_PROGRESS:IN_PROGRESS;DONE:DONE' :value="$item->status">
-                <option>CREATED</option>
-            </x-select-group>
+            <x-select-group name="status" wire:model.change="status" options='CREATED:CREATED;IN_PROGRESS:IN_PROGRESS;DONE:DONE' :value="$item->status" />
         </div>
         HTML;
     }

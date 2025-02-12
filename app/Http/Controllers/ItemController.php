@@ -69,7 +69,7 @@ class ItemController extends Controller
         ]);
 
         $fields['user_id'] = auth()->id();
-        $fields['translated'] = ChatGPTService::translateAndMarkdown($fields['story']);
+        $fields['translated'] = ChatGPTService::translateAndMarkdown($fields['title'], $fields['story']);
 
         $item = Item::create($fields);
 
@@ -93,7 +93,7 @@ class ItemController extends Controller
             'type' => 'required',
         ]);
 
-        $fields['translated'] = ChatGPTService::translateAndMarkdown($fields['story']);
+        $fields['translated'] = ChatGPTService::translateAndMarkdown($fields['title'], $fields['story']);
 
         $item->update($fields);
 

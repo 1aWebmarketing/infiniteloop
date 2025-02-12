@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\ChatGPTService;
 use Illuminate\Http\Request;
 use App\Models\Item;
 use App\Models\Comment;
@@ -19,6 +20,10 @@ class CommentController extends Controller
 
         Comment::create($fields);
 
+        if(!str_contains($fields['text'], '/ki') === false){
+            $fields['text'] = str_replace('/ki', '', $fields['text']);
+            ChatGPTService::optimizeItem($item, $fields['text']);
+        }
 
         return redirect()
             ->route('items.show', [

@@ -4,6 +4,15 @@ Updates should follow the [Keep a CHANGELOG](https://keepachangelog.com/) princi
 
 ## [Unreleased]
 
+## [1.1.0] - 12.02.2025
+
+## Added
+
+- New Item Layout
+- Translate Titles also
+- Add comments when item status is changed
+- /ki Keyword to let ChatGPT optimize the UserStory
+
 ## [1.0.4] - 11.02.2025
 
 ### Added
