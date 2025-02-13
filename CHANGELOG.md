@@ -4,6 +4,12 @@ Updates should follow the [Keep a CHANGELOG](https://keepachangelog.com/) princi
 
 ## [Unreleased]
 
+## [1.1.1] - 13.02.2025
+
+## Fixed
+
+- Fixed error when no translation is present
+
 ## [1.1.0] - 12.02.2025
 
 ## Added

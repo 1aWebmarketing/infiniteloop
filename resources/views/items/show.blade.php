@@ -28,8 +28,8 @@
     <x-modal name="markdown">
         <div class="p-4">
             <x-h2 class="mb-4">Markdown</x-h2>
-            <x-input-group :value="$item->translated['title']" />
-            <x-textarea class="h-[300px]">{{ $item->translated['story'] }}</x-textarea>
+            <x-input-group :value="$item->translated['title'] ?? ''" />
+            <x-textarea class="h-[300px]">{{ $item->translated['story'] ?? '' }}</x-textarea>
         </div>
     </x-modal>
 
