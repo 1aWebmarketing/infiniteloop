@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\SendNewCommentNotification;
 use App\Services\ChatGPTService;
 use Illuminate\Http\Request;
 use App\Models\Item;
@@ -18,7 +19,9 @@ class CommentController extends Controller
         $fields['item_id'] = $item->id;
         $fields['user_id'] = auth()->id();
 
-        Comment::create($fields);
+        $comment = Comment::create($fields);
+
+        SendNewCommentNotification::dispatch($item, $comment);
 
         if(!str_contains($fields['text'], '/ki') === false){
             $fields['text'] = str_replace('/ki', '', $fields['text']);
@@ -28,7 +31,7 @@ class CommentController extends Controller
         return redirect()
             ->route('items.show', [
                 'project' => $item->project->id,
-                'item' => $fields['item_id']
+                'item' => $item->uuid
             ]);
     }
 }

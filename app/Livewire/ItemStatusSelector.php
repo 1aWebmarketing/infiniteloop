@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Jobs\SendNewCommentNotification;
 use Livewire\Component;
 use App\Models\Item;
 
@@ -18,7 +19,7 @@ class ItemStatusSelector extends Component
 
     public function updatedStatus()
     {
-        $this->item->comments()->create([
+        $comment = $this->item->comments()->create([
             'user_id' => auth()->id(),
             'text' => $this->item->status . ' -> ' . $this->status,
         ]);
@@ -26,6 +27,8 @@ class ItemStatusSelector extends Component
         $this->item->update([
             'status' => $this->status
         ]);
+
+        SendNewCommentNotification::dispatch($this->item, $comment);
     }
 
     public function render()

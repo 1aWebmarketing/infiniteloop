@@ -4,11 +4,21 @@ Updates should follow the [Keep a CHANGELOG](https://keepachangelog.com/) princi
 
 ## [Unreleased]
 
+## [1.2.0] - 14.02.2025
+
+## Added
+
+- New comment notification with comment and link to User Story
+
 ## [1.1.1] - 13.02.2025
 
 ## Fixed
 
 - Fixed error when no translation is present
+
+## Changed
+
+- Changed User Story id in url to uuid
 
 ## [1.1.0] - 12.02.2025
 

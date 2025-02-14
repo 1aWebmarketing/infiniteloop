@@ -47,9 +47,9 @@
                                 type="button"><x-icons.markdown width="1.5em"/></button>
 
                         @if($editable)
-                            <a href="{{ route('items.edit', ['project' => $item->project_id, 'item' => $item]) }}"><x-icons.edit width="1.5em"/></a>
+                            <a href="{{ route('items.edit', ['project' => $item->project_id, 'item' => $item->uuid]) }}"><x-icons.edit width="1.5em"/></a>
 
-                            <form action="{{ route('items.destroy', ['project' => $item->project_id, 'item' => $item->id]) }}" method="POST">
+                            <form action="{{ route('items.destroy', ['project' => $item->project_id, 'item' => $item->uuid]) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button class="text-sm flex gap-2 items-center font-medium text-gray-600"><x-icons.delete width="1.5em" height="1.5em"/></button>
@@ -80,7 +80,7 @@
             <x-box>
                 <x-author-info :user="auth()->user()" :date="now()"/>
 
-                <form action="{{ route('comments.store', ['item' => $item->id]) }}" method="POST">
+                <form action="{{ route('comments.store', ['item' => $item->uuid]) }}" method="POST">
                     @csrf
 
                     <x-textarea-group name="text"></x-textarea-group>
