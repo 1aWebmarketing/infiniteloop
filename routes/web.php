@@ -21,7 +21,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/projects/{project}/items/create', [ItemController::class, 'create'])->name('items.create');
     Route::post('/projects/{project}/items/create/save', [ItemController::class, 'store'])->name('items.store');
-    Route::get('/projects/{project}/items/{item}', [ItemController::class, 'show'])->name('items.show');
+    Route::get('/projects/{project}/items/{item:uuid}', [ItemController::class, 'show'])->name('items.show');
     Route::get('/projects/{project}/items/{item}/form', [ItemController::class, 'edit'])->name('items.edit');
     Route::put('/projects/{project}/items/{item}/form', [ItemController::class, 'update'])->name('items.update');
     Route::post('/items/{item}/upvote', [ItemController::class, 'upvote'])->name('items.upvote');

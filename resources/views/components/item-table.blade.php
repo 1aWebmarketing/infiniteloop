@@ -14,7 +14,7 @@
     </div>
 
     <div class="flex-grow py-2">
-        <p class="text-xl font-bold mb-2"><a href="{{ route('items.show', ['project' => $project->id, 'item' => $item->id]) }}">{{ $item->title }} <span class="text-xs text-gray-500">{{ formatDateTime($item->created_at) }}</span></a></p>
+        <p class="text-xl font-bold mb-2"><a href="{{ route('items.show', ['project' => $project->id, 'item' => $item->uuid]) }}">{{ $item->title }} <span class="text-xs text-gray-500">{{ formatDateTime($item->created_at) }}</span></a></p>
         <ul class="flex gap-4 items-center">
             <li>{!! $item->typePillHtml() !!}</li>
             <li>{!! $item->priorityPillHtml() !!}</li>

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Item extends Model
 {
@@ -29,6 +30,16 @@ class Item extends Model
         'translated' => 'array',
     ];
 
+    protected static function booted()
+    {
+        parent::booted();
+
+        static::creating(function ($model) {
+            if (!$model->uuid) {
+                $model->uuid = Str::uuid();
+            }
+        });
+    }
     public function user()
     {
         return $this->belongsTo(User::class);
