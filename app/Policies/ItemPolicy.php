@@ -8,6 +8,11 @@ use Illuminate\Auth\Access\Response;
 
 class ItemPolicy
 {
+    public function viewAny(User $user): bool
+    {
+        return auth()->check();
+    }
+
     /**
      * Determine whether the user can update the model.
      */
