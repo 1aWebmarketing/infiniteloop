@@ -4,6 +4,10 @@ Updates should follow the [Keep a CHANGELOG](https://keepachangelog.com/) princi
 
 ## [Unreleased]
 
+## Added
+
+- Statusemail on status change with own template
+
 ## [1.2.0] - 14.02.2025
 
 ## Added
