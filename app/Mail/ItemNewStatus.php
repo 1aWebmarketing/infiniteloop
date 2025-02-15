@@ -2,7 +2,6 @@
 
 namespace App\Mail;
 
-use App\Models\Comment;
 use App\Models\Item;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -11,7 +10,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class NewItemComment extends Mailable
+class ItemNewStatus extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -20,7 +19,8 @@ class NewItemComment extends Mailable
      */
     public function __construct(
         public Item $item,
-        public Comment $comment,
+        public string $oldStatus,
+        public string $newStatus,
     )
     {
         //
@@ -32,7 +32,7 @@ class NewItemComment extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: '[New Comment] ' . $this->item->title,
+            subject: '[New Status] ' . $this->item->title,
         );
     }
 
@@ -42,11 +42,11 @@ class NewItemComment extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'emails.item-new-comment',
+            view: 'emails.item-new-status',
             with: [
                 'item_name' => $this->item->title,
-                'comment_text' => $this->comment->text,
-                'author_name' => $this->comment->user->name,
+                'old_status' => $this->oldStatus,
+                'new_status' => $this->newStatus,
                 'item_url' => route('items.show', ['project' => $this->item->project, 'item' => $this->item->uuid]),
             ]
         );
