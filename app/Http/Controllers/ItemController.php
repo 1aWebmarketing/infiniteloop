@@ -7,12 +7,17 @@ use Illuminate\Http\Request;
 use App\Models\Item;
 use App\Models\Project;
 use App\Services\ItemUpvoteService;
+use Illuminate\Support\Facades\Gate;
 use League\HTMLToMarkdown\HtmlConverter;
 
 class ItemController extends Controller
 {
     public function show(Request $request, Project $project, Item $item)
     {
+        if($request->user()->cannot('viewAny', $item)) {
+            abort(403, 'Operation failed successfully');
+        }
+
         view()->share('metaTitle', $item->title);
 
         $converter = new HtmlConverter(['header_style' => 'atx']);
