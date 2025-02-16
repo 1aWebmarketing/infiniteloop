@@ -2,7 +2,15 @@
 
 Use this app to gather UserStories from inside your company. Let users upvote ideas and categories ideas by type and prio.
 
-![image](https://raw.githubusercontent.com/1aWebmarketing/infiniteloop/refs/heads/main/Screenshots/screen-1.png)
+![image](https://raw.githubusercontent.com/1aWebmarketing/infiniteloop/refs/heads/main/Screenshots/Showcase-1.gif)
+
+## infiniteloop
+
+- Create, Show, Update and Delete Projects
+- Restrict access to @domain.tld users in .env
+- User can create User Stories with a project given template
+- Set User Story type and priority
+- 
 
 ## Registration Domain Control
 
