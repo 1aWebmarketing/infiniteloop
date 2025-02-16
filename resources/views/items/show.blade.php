@@ -6,7 +6,7 @@
             </div>
         </div>
         <div>
-            <a class="text-white text-xs drop-shadow hover:underline" href="{{ route('projects.show', ['project' => $item->project->id]) }}">Zurück zu {{ $item->project->name }}</a>
+            <a class="text-white text-xs drop-shadow hover:underline" href="{{ route('projects.show', ['project' => $item->project->id]) }}">{{ __('projects.back_to_project', ['project' => $item->project->name]) }}</a>
             <x-h1 class="text-white drop-shadow-lg">{{ $item->title }}</x-h1>
 
             <ul class="flex gap-4 mt-2">
@@ -27,7 +27,7 @@
 
     <x-modal name="markdown">
         <div class="p-4">
-            <x-h2 class="mb-4">Markdown</x-h2>
+            <x-h2 class="mb-4">{{ __('items.markdown') }}</x-h2>
             <x-input-group :value="$item->translated['title'] ?? ''" />
             <x-textarea class="h-[300px]">{{ $item->translated['story'] ?? '' }}</x-textarea>
         </div>
@@ -75,7 +75,7 @@
                 </x-box>
             @endforeach
 
-            <x-h2 class="py-2 text-white">Kommentieren</x-h2>
+            <x-h2 class="py-2 text-white">{{ __('items.comment') }}</x-h2>
 
             <x-box>
                 <x-author-info :user="auth()->user()" :date="now()"/>
@@ -85,7 +85,7 @@
 
                     <x-textarea-group name="text"></x-textarea-group>
 
-                    <x-primary-button>Absenden</x-primary-button>
+                    <x-primary-button>{{ __('items.send_comment') }}</x-primary-button>
                 </form>
             </x-box>
         </div>

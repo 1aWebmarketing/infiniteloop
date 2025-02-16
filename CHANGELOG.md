@@ -4,6 +4,12 @@ Updates should follow the [Keep a CHANGELOG](https://keepachangelog.com/) princi
 
 ## [Unreleased]
 
+## [1.2.2] - 16.02.2025
+
+## Added
+
+- Localization and german/english translations
+
 ## [1.2.1] - 15.02.2025
 
 ## Added

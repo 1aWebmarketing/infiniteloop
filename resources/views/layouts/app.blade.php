@@ -47,7 +47,7 @@
                         <a class="hover:text-gray-700 transition ease-in-out duration-150" href="{{ route('dashboard') }}">Home</a>
                     </li>
                     <li>
-                        <a class="hover:text-gray-700 transition ease-in-out duration-150" href="{{ route('projects.create') }}">Projekt anlegen</a>
+                        <a class="hover:text-gray-700 transition ease-in-out duration-150" href="{{ route('projects.create') }}">{{ __('projects.create') }}</a>
                     </li>
                     <li>
                         <x-dropdown align="right" width="48">
@@ -66,12 +66,12 @@
                             <x-slot name="content">
                                 @can('access-admin')
                                     <x-dropdown-link :href="route('admin.dashboard')">
-                                        {{ __('Admin') }}
+                                        {{ __('auth.admin') }}
                                     </x-dropdown-link>
                                 @endcan
 
                                 <x-dropdown-link :href="route('profile.edit')">
-                                    {{ __('Profile') }}
+                                    {{ __('profile.title') }}
                                 </x-dropdown-link>
 
                                 <!-- Authentication -->
@@ -80,7 +80,7 @@
 
                                     <x-dropdown-link :href="route('logout')"
                                             onclick="event.preventDefault(); this.closest('form').submit();">
-                                        {{ __('Log Out') }}
+                                        {{ __('auth.logout') }}
                                     </x-dropdown-link>
                                 </form>
                             </x-slot>

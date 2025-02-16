@@ -32,7 +32,7 @@ class ItemController extends Controller
 
     public function create(Request $request, Project $project)
     {
-        view()->share('metaTitle', 'Item erstellen');
+        view()->share('metaTitle', __('items.create'));
 
         $item = new Item;
         $item->project_id = $project->id;
@@ -56,7 +56,7 @@ class ItemController extends Controller
             abort(403);
         }
 
-        view()->share('metaTitle', 'Item bearbeiten');
+        view()->share('metaTitle', __('items.edit'));
 
         return view('items/form', [
             'item' => $item,
