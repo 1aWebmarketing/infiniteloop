@@ -23,12 +23,9 @@ Checkout the repository and rename the `.env.example` to `.env`.
 
 - Run `composer install`
 - Run `npm install`
+- Run `php artisan migrate` or `php artisan migrate:fresh --seed`
 
 Missing parameters are marked with `*****`
-
-### Mockup data
-
-Use `php artisan migrate:fresh --seed` to get some mockup data into infiniteloop.
 
 ### Naming Conventions
 
