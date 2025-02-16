@@ -4,13 +4,14 @@ Use this app to gather UserStories from inside your company. Let users upvote id
 
 ![image](https://raw.githubusercontent.com/1aWebmarketing/infiniteloop/refs/heads/main/Screenshots/Showcase-1.gif)
 
-## infiniteloop
+## What's inside?
 
 - Create, Show, Update and Delete Projects
-- Restrict access to @domain.tld users in .env
-- User can create User Stories with a project given template
+- Configure a base User Story for every project
+- CRUD User Stories
 - Set User Story type and priority
-- 
+- Restrict access to @domain.tld users in .env
+- Use /ai in comment to let chatGPT directly change/enrich User Story
 
 ## Registration Domain Control
 
