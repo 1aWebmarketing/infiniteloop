@@ -1,6 +1,6 @@
 <div {{ $attributes->merge(['class' => 'flex gap-4 mb-2 border-b pb-2 px-2 pt-2']) }}>
     <div class="bg-gray-500/10 rounded p-2 flex flex-col gap-2 justify-center items-center">
-        <form action="{{ route('items.upvote', ['item' => $item->id]) }}" method="POST">
+        <form action="{{ route('items.upvote', ['item' => $item->uuid]) }}" method="POST">
             @csrf
             <button class="hover:cursor-pointer">
                 @if( canUpvote(auth()->user(), $item) )
