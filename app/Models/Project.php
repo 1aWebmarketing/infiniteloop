@@ -20,7 +20,7 @@ class Project extends Model
         {
             return asset('storage/' . $this->logo);
         }
-        return asset('storage/projects/default.png');
+        return asset('images/project-default.png');
     }
 
     public function items()
