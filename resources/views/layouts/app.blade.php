@@ -16,6 +16,9 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Passion+One:wght@400;700;900&display=swap" rel="stylesheet">
 
+        <script src="{{ asset('assets/dropzone-5.9.3/dropzone.min.js?ver=5.9.3') }}"></script>
+        <link rel="stylesheet" href="{{ asset('assets/dropzone-5.9.3/dropzone.min.css?ver=5.9.3') }}" type="text/css"/>
+
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         <x-head.tinymce-config/>

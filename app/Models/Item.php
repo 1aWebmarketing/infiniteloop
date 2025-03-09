@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 
 class Item extends Model
@@ -30,7 +32,10 @@ class Item extends Model
         'translated' => 'array',
     ];
 
-    protected static function booted()
+    /**
+     * @return void
+     */
+    protected static function booted(): void
     {
         parent::booted();
 
@@ -40,21 +45,43 @@ class Item extends Model
             }
         });
     }
-    public function user()
+
+    /**
+     * @return BelongsTo
+     */
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function project()
+    /**
+     * @return BelongsTo
+     */
+    public function project(): BelongsTo
     {
         return $this->belongsTo(Project::class);
     }
 
-    public function comments()
+    /**
+     * @return HasMany
+     */
+    public function comments(): HasMany
     {
         return $this->hasMany(Comment::class);
     }
 
+    /**
+     * @return HasMany
+     */
+    public function creatives(): HasMany
+    {
+        return $this->hasMany(Creative::class);
+    }
+
+    /**
+     * @param $query
+     * @return mixed
+     */
     public function scopeStatusInProgress($query)
     {
         return $query->where('status', 'IN_PROGRESS')
@@ -62,6 +89,10 @@ class Item extends Model
              ->orderByDesc('voting');
     }
 
+    /**
+     * @param $query
+     * @return mixed
+     */
     public function scopeStatusCreated($query)
     {
         return $query->where('status', 'CREATED')
@@ -69,6 +100,10 @@ class Item extends Model
              ->orderByDesc('voting');
     }
 
+    /**
+     * @param $query
+     * @return mixed
+     */
     public function scopeStatusDone($query)
     {
         return $query->where('status', 'DONE')
@@ -76,7 +111,10 @@ class Item extends Model
              ->orderByDesc('voting');
     }
 
-    public function statusPillHtml()
+    /**
+     * @return string
+     */
+    public function statusPillHtml(): string
     {
         return match($this->status){
             'CREATED' => '<span class="rounded px-2 py-1 text-sm font-bold bg-purple-100 text-purple-500">' . $this->status . '</span>',
@@ -85,7 +123,10 @@ class Item extends Model
         };
     }
 
-    public function typePillHtml()
+    /**
+     * @return string
+     */
+    public function typePillHtml(): string
     {
         return match($this->type){
             'FEATURE' => '<span class="rounded px-2 py-1 text-sm font-bold bg-blue-100 text-blue-500">' . $this->type . '</span>',
@@ -94,7 +135,10 @@ class Item extends Model
         };
     }
 
-    public function priorityPillHtml()
+    /**
+     * @return string
+     */
+    public function priorityPillHtml(): string
     {
         return match($this->priority){
             'LOW' => '<span class="rounded px-2 py-1 text-sm font-bold bg-blue-100 text-blue-500">' . $this->priority . '</span>',
@@ -104,7 +148,10 @@ class Item extends Model
         };
     }
 
-    public function styledStory()
+    /**
+     * @return string
+     */
+    public function styledStory(): string
     {
         return <<<"HTML"
             <div class="userstory">

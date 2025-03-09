@@ -8,6 +8,7 @@ use App\Models\Item;
 use App\Models\Project;
 use App\Services\ItemUpvoteService;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Str;
 use League\HTMLToMarkdown\HtmlConverter;
 
 class ItemController extends Controller
@@ -20,9 +21,27 @@ class ItemController extends Controller
 
         view()->share('metaTitle', $item->title);
 
-        $converter = new HtmlConverter(['header_style' => 'atx']);
-        $markdown = $converter->convert($item->story);
-        $item->markdown = preg_replace('/\\\\([\\[\\]])/', '$1', $markdown);
+//        $converter = new HtmlConverter(['header_style' => 'atx']);
+//        $markdown = $converter->convert($item->story);
+//        $item->markdown = preg_replace('/\\\\([\\[\\]])/', '$1', $markdown);
+
+        $creativesMarkdown = "";
+
+        if($item->creatives->count())
+        {
+            $creativesMarkdown = "\n\n## Creatives\n\n";
+
+            foreach($item->creatives as $creative) {
+                if($creative->type === 'IMAGE') {
+                    $creativesMarkdown .= "![" . Str::replace(['[', ']'], ['\[', '\]'], $creative->name) . "](" . asset($creative->path) . ")\n";
+                } else
+                {
+                    $creativesMarkdown .= "[" . Str::replace(['[', ']'], ['\[', '\]'], $creative->name) . "](" . asset($creative->path) . ")\n";
+                }
+            }
+        }
+
+        $item->story_w_creatives = $item->translated['story'] . $creativesMarkdown;
 
         return view('items/show', [
             'item' => $item,
@@ -34,20 +53,27 @@ class ItemController extends Controller
     {
         view()->share('metaTitle', __('items.create'));
 
-        $item = new Item;
-        $item->project_id = $project->id;
-        $item->story = $project->template;
-
-        $s = '<h2 dir="auto">Beschreibung (Haupt User Story):</h2>
-        <p dir="auto">[WAS WILLST DU MACHEN UM WAS ZU ERREICHEN?]</p>
-        <h2 dir="auto">Akzeptanzkriterien:</h2>
-        <p dir="auto">[WAS MUSS ERFOLGREICH PASSIEREN, DAMIT DIESE USER STORY ABGESCHLOSSEN WERDEN KANN]</p>
-        <h2 dir="auto">Zus&auml;tzliche Informationen oder Abh&auml;ngigkeiten:</h2>
-        <p>[MEHR INFORMATIONEN]</p>';
-
-        return view('items/form', [
-            'item' => $item,
+        $item = Item::create([
+            'project_id' => $project->id,
+            'story' => $project->template
         ]);
+
+        return redirect()
+            ->route('items.show', [
+                $project,
+                $item
+            ]);
+
+//        $s = '<h2 dir="auto">Beschreibung (Haupt User Story):</h2>
+//        <p dir="auto">[WAS WILLST DU MACHEN UM WAS ZU ERREICHEN?]</p>
+//        <h2 dir="auto">Akzeptanzkriterien:</h2>
+//        <p dir="auto">[WAS MUSS ERFOLGREICH PASSIEREN, DAMIT DIESE USER STORY ABGESCHLOSSEN WERDEN KANN]</p>
+//        <h2 dir="auto">Zus&auml;tzliche Informationen oder Abh&auml;ngigkeiten:</h2>
+//        <p>[MEHR INFORMATIONEN]</p>';
+//
+//        return view('items/form', [
+//            'item' => $item,
+//        ]);
     }
 
     public function edit(Request $request, Project $project, Item $item)

@@ -10,28 +10,40 @@
         </div>
     </div>
 
+    <form action="{{ $item->exists ? route('items.update', ['project' => $item->project_id, 'item' =>$item->uuid]) : route('items.store', ['project' => $item->project->id]) }}" method="POST">
+        @csrf
+        @if($item->exists)
+            @method('PUT')
+        @endif
+
+        <div class="grid grid-cols-[2fr_1fr] gap-4">
+            <x-box>
+                <input type="hidden" name="project_id" value="{{ $item->project->id }}" />
+
+                <x-text-input name="title" class="w-full" placeholder="Titel" value="{{ old('title', $item->title) }}"/>
+                <x-input-error :messages="$errors->get('title')" />
+
+                <x-forms.tinymce-editor name="story">{{ old('story', $item->story) }}</x-forms.tinymce-editor>
+            </x-box>
+
+            <x-box>
+                <x-h2 class="mb-4">Typ</x-h2>
+                <x-input-error :messages="$errors->get('type')" />
+                <x-item-type name="type" :value="$item->type"/>
+
+                <x-h2 class="my-4">Priorität</x-h2>
+                <x-input-error :messages="$errors->get('priority')" />
+                <x-item-priority name="priority" :value="$item->priority"/>
+
+                <x-primary-button class="mt-4">Speichern</x-primary-button>
+            </x-box>
+        </div>
+    </form>
+
     <x-box>
-        <form action="{{ $item->exists ? route('items.update', ['project' => $item->project_id, 'item' =>$item->uuid]) : route('items.store', ['project' => $item->project->id]) }}" method="POST">
+        <x-h2 class="my-4">Medien</x-h2>
+        <form action="{{ route('creatives.upload', ['item' => $item]) }}" class="dropzone my-2" id="creatives-dopzone" enctype="multipart/form-data">
             @csrf
-            @if($item->exists)
-                @method('PUT')
-            @endif
-            <input type="hidden" name="project_id" value="{{ $item->project->id }}" />
-
-            <x-text-input name="title" class="w-full" placeholder="Titel" value="{{ old('title', $item->title) }}"/>
-            <x-input-error :messages="$errors->get('title')" />
-
-            <x-forms.tinymce-editor name="story">{{ old('story', $item->story) }}</x-forms.tinymce-editor>
-
-            <x-h2 class="my-4">Typ</x-h2>
-            <x-input-error :messages="$errors->get('type')" />
-            <x-item-type name="type" :value="$item->type"/>
-
-            <x-h2 class="my-4">Priorität</x-h2>
-            <x-input-error :messages="$errors->get('priority')" />
-            <x-item-priority name="priority" :value="$item->priority"/>
-
-            <x-primary-button class="mt-4">Speichern</x-primary-button>
         </form>
     </x-box>
 

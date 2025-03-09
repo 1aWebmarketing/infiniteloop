@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CreativeController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
@@ -20,12 +21,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/projects/{project}', [ProjectController::class, 'destroy'])->name('projects.destroy');
 
     Route::get('/projects/{project}/items/create', [ItemController::class, 'create'])->name('items.create');
-    Route::post('/projects/{project}/items/create/save', [ItemController::class, 'store'])->name('items.store');
+    Route::post('/projects/{project}/items/create', [ItemController::class, 'store'])->name('items.store');
     Route::get('/projects/{project}/items/{item:uuid}', [ItemController::class, 'show'])->name('items.show');
     Route::get('/projects/{project}/items/{item:uuid}/form', [ItemController::class, 'edit'])->name('items.edit');
     Route::put('/projects/{project}/items/{item:uuid}/form', [ItemController::class, 'update'])->name('items.update');
     Route::post('/items/{item:uuid}/upvote', [ItemController::class, 'upvote'])->name('items.upvote');
     Route::delete('/projects/{project}/items/{item:uuid}', [ItemController::class, 'destroy'])->name('items.destroy');
+
+    Route::post('/creatives/{item:uuid}/upload', [CreativeController::class, 'upload'])->name('creatives.upload');
 
     Route::post('/items/{item:uuid}/comment', [CommentController::class, 'store'])->name('comments.store');
 
