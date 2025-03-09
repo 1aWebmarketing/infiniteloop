@@ -8,6 +8,7 @@ use App\Models\Item;
 use App\Models\Project;
 use App\Services\ItemUpvoteService;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Str;
 use League\HTMLToMarkdown\HtmlConverter;
 
 class ItemController extends Controller
@@ -20,9 +21,27 @@ class ItemController extends Controller
 
         view()->share('metaTitle', $item->title);
 
-        $converter = new HtmlConverter(['header_style' => 'atx']);
-        $markdown = $converter->convert($item->story);
-        $item->markdown = preg_replace('/\\\\([\\[\\]])/', '$1', $markdown);
+//        $converter = new HtmlConverter(['header_style' => 'atx']);
+//        $markdown = $converter->convert($item->story);
+//        $item->markdown = preg_replace('/\\\\([\\[\\]])/', '$1', $markdown);
+
+        $creativesMarkdown = "";
+
+        if($item->creatives->count())
+        {
+            $creativesMarkdown = "\n\n## Creatives\n\n";
+
+            foreach($item->creatives as $creative) {
+                if($creative->type === 'IMAGE') {
+                    $creativesMarkdown .= "![" . Str::replace(['[', ']'], ['\[', '\]'], $creative->name) . "](" . asset($creative->path) . ")\n";
+                } else
+                {
+                    $creativesMarkdown .= "[" . Str::replace(['[', ']'], ['\[', '\]'], $creative->name) . "](" . asset($creative->path) . ")\n";
+                }
+            }
+        }
+
+        $item->story_w_creatives = $item->translated['story'] . $creativesMarkdown;
 
         return view('items/show', [
             'item' => $item,
