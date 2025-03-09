@@ -41,7 +41,7 @@ class ItemController extends Controller
             }
         }
 
-        $item->story_w_creatives = $item->translated['story'] . $creativesMarkdown;
+        $item->story_w_creatives = ($item->translated['story'] ?? '') . $creativesMarkdown;
 
         return view('items/show', [
             'item' => $item,
