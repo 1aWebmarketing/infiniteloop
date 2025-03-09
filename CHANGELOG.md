@@ -4,6 +4,12 @@ Updates should follow the [Keep a CHANGELOG](https://keepachangelog.com/) princi
 
 ## [Unreleased]
 
+## [1.2.3] - 09.02.2025
+
+## Added
+
+- Creatives upload to Items
+
 ## [1.2.2] - 16.02.2025
 
 ## Added
