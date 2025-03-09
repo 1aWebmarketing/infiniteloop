@@ -34,20 +34,27 @@ class ItemController extends Controller
     {
         view()->share('metaTitle', __('items.create'));
 
-        $item = new Item;
-        $item->project_id = $project->id;
-        $item->story = $project->template;
-
-        $s = '<h2 dir="auto">Beschreibung (Haupt User Story):</h2>
-        <p dir="auto">[WAS WILLST DU MACHEN UM WAS ZU ERREICHEN?]</p>
-        <h2 dir="auto">Akzeptanzkriterien:</h2>
-        <p dir="auto">[WAS MUSS ERFOLGREICH PASSIEREN, DAMIT DIESE USER STORY ABGESCHLOSSEN WERDEN KANN]</p>
-        <h2 dir="auto">Zus&auml;tzliche Informationen oder Abh&auml;ngigkeiten:</h2>
-        <p>[MEHR INFORMATIONEN]</p>';
-
-        return view('items/form', [
-            'item' => $item,
+        $item = Item::create([
+            'project_id' => $project->id,
+            'story' => $project->template
         ]);
+
+        return redirect()
+            ->route('items.show', [
+                $project,
+                $item
+            ]);
+
+//        $s = '<h2 dir="auto">Beschreibung (Haupt User Story):</h2>
+//        <p dir="auto">[WAS WILLST DU MACHEN UM WAS ZU ERREICHEN?]</p>
+//        <h2 dir="auto">Akzeptanzkriterien:</h2>
+//        <p dir="auto">[WAS MUSS ERFOLGREICH PASSIEREN, DAMIT DIESE USER STORY ABGESCHLOSSEN WERDEN KANN]</p>
+//        <h2 dir="auto">Zus&auml;tzliche Informationen oder Abh&auml;ngigkeiten:</h2>
+//        <p>[MEHR INFORMATIONEN]</p>';
+//
+//        return view('items/form', [
+//            'item' => $item,
+//        ]);
     }
 
     public function edit(Request $request, Project $project, Item $item)

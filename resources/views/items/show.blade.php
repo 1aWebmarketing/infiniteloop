@@ -62,6 +62,16 @@
                     {!! $item->styledStory() !!}
                 </div>
             </x-box>
+
+            @if($item->creatives->count())
+                <x-box>
+                    <div class="grid grid-cols-3 gap-4">
+                        @foreach($item->creatives as $creative)
+                            {!! $creative->display() !!}
+                        @endforeach
+                    </div>
+                </x-box>
+            @endif
         </div>
 
         <div>
