@@ -26,7 +26,7 @@ class Creative extends Model
     {
         if($this->type === 'IMAGE')
         {
-            return "<img src='" . asset($this->path) . "'
+            return "<img src='" . asset('storage/' . $this->path) . "'
                 class='object-cover hover:object-contain hover:outline outline-gray-300 hover:cursor-pointer'
                 style='max-height: {{$maxHeight}}px; aspect-ratio: 1/1;'>";
         }
@@ -36,7 +36,7 @@ class Creative extends Model
                 class='hover:cursor-pointer'
                 style='max-height: {{$maxHeight}}px; aspect-ratio: 1/1;'
                 onclick='if(this.paused){this.play();}else{this.pause();this.currentTime = 0;}'>
-                <source src='" . asset($this->path) . "'>
+                <source src='" . asset('storage/' . $this->path) . "'>
             </video>";
 
         }
