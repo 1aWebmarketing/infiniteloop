@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\ChatGPTService;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Item;
 use App\Models\Project;
@@ -55,13 +56,15 @@ class ItemController extends Controller
 
         $item = Item::create([
             'project_id' => $project->id,
-            'story' => $project->template
+            'user_id' => auth()->id(),
+            'title' => 'New Feature ' . Carbon::now()->format('d.m.Y H:i'),
+            'story' => $project->template,
         ]);
 
         return redirect()
-            ->route('items.show', [
-                $project,
-                $item
+            ->route('items.edit', [
+                'project' => $project,
+                'item' => $item
             ]);
 
 //        $s = '<h2 dir="auto">Beschreibung (Haupt User Story):</h2>
