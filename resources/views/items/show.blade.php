@@ -22,7 +22,6 @@
         </div>
     </div>
 
-
     <!-- Modal toggle -->
 
     <x-modal name="markdown">

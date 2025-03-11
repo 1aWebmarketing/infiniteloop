@@ -34,10 +34,10 @@ class ItemController extends Controller
 
             foreach($item->creatives as $creative) {
                 if($creative->type === 'IMAGE') {
-                    $creativesMarkdown .= "![" . Str::replace(['[', ']'], ['\[', '\]'], $creative->name) . "](" . asset($creative->path) . ")\n";
+                    $creativesMarkdown .= "![" . Str::replace(['[', ']'], ['\[', '\]'], $creative->name) . "](" . asset('storage/' . $creative->path) . ")\n";
                 } else
                 {
-                    $creativesMarkdown .= "[" . Str::replace(['[', ']'], ['\[', '\]'], $creative->name) . "](" . asset($creative->path) . ")\n";
+                    $creativesMarkdown .= "[" . Str::replace(['[', ']'], ['\[', '\]'], $creative->name) . "](" . asset('storage/' . $creative->path) . ")\n";
                 }
             }
         }
