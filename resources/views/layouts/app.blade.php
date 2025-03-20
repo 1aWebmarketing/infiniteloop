@@ -67,8 +67,8 @@
                             </x-slot>
 
                             <x-slot name="content">
-                                @can('access-admin')
-                                    <x-dropdown-link :href="route('admin.dashboard')">
+                                @can('admin')
+                                    <x-dropdown-link :href="route('admin')">
                                         {{ __('auth.admin') }}
                                     </x-dropdown-link>
                                 @endcan

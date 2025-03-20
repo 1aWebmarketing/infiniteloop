@@ -15,11 +15,11 @@ class Admin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(!auth()->user()->is_admin === 1)
+        if(auth()->user()->is_admin === 1)
         {
-            return response('Unauthorized.', Response::HTTP_UNAUTHORIZED);
+            return $next($request);
         }
 
-        return $next($request);
+        abort(403);
     }
 }
