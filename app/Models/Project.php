@@ -3,18 +3,16 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Project extends Model
 {
-    protected $fillable = [
-        'user_id',
-        'name',
-        'logo',
-        'description',
-        'template'
+    protected $guarded = [
+        'id',
     ];
 
-    public function getLogoUrl()
+    public function getLogoUrl(): string
     {
         if( $this->logo )
         {
@@ -23,7 +21,18 @@ class Project extends Model
         return asset('images/project-default.png');
     }
 
-    public function items()
+    /**
+     * @return BelongsTo<Team, $this>
+     */
+    public function team(): BelongsTo
+    {
+        return $this->belongsTo(Team::class);
+    }
+
+    /**
+     * @return HasMany<Item, $this>
+     */
+    public function items(): HasMany
     {
         return $this->hasMany(Item::class);
     }

@@ -16,10 +16,12 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreignId('user_id');
+            $table->foreignId('team_id');
 
             $table->string('logo')->nullable();
             $table->string('name');
             $table->text('description');
+            $table->text('story_template')->default('<h2>What do you wish for?</h2>');
         });
     }
 

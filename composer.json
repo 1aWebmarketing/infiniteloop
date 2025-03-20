@@ -11,17 +11,18 @@
     "require": {
         "php": "^8.2",
         "laravel/framework": "^11.31",
+        "laravel/jetstream": "^5.3",
+        "laravel/sanctum": "^4.0",
         "laravel/socialite": "^5.18",
         "laravel/tinker": "^2.9",
         "league/html-to-markdown": "^5.1",
-        "livewire/livewire": "^3.5",
+        "livewire/livewire": "^3.6",
         "oneawebmarketing/laravel-changelog": "^1.0",
-        "openai-php/laravel": "^0.10.2",
-        "tinymce/tinymce": "^7.6"
+        "openai-php/laravel": "^0.11.0",
+        "tinymce/tinymce": "^7.7"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
-        "laravel/breeze": "^2.3",
         "laravel/pail": "^1.1",
         "laravel/pint": "^1.13",
         "laravel/sail": "^1.26",
@@ -36,7 +37,7 @@
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
         },
-        "files" : [
+        "files": [
             "app/Helpers/general.php"
         ]
     },

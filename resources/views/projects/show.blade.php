@@ -1,7 +1,7 @@
 <x-app-layout>
 
-    <div class="mt-8 flex gap-4 items-center pb-6">
-        <div class="bg-gray-100 rounded-full w-[100px] h-[100px] p-2 shadow border border-gray-400 overflow-hidden">
+    <div class="flex gap-4 w-full items-center pb-6">
+        <div class="bg-gray-800 rounded-full w-[100px] h-[100px] p-2 shadow border border-gray-700 overflow-hidden">
             <img src="{{ $project->getLogoUrl() }}">
         </div>
         <div>
@@ -10,7 +10,7 @@
         </div>
     </div>
 
-    <div class="bg-white rounded-2xl shadow p-4">
+    <x-box>
         <div class="flex gap-4 mb-4 border-b pb-4">
             {{--<x-primary-button>Alle anzeigen</x-primary-button>
             <x-primary-button>Abgeschlossene Items</x-primary-button> --}}
@@ -20,24 +20,24 @@
 
 
         @if( $activeItems->count() )
-            <x-h2 class="mb-2">{{ __('items.in_progress') }}</x-h2>
+            <x-h2 class="text-white mb-2">{{ __('items.in_progress') }}</x-h2>
             @foreach($activeItems as $activeItem)
-                <x-item-table class="bg-green-100" :project="$project" :item="$activeItem"/>
+                <x-item-table class="bg-green-100/30 border-l-4 border-green-500" :project="$project" :item="$activeItem"/>
             @endforeach
         @endif
 
         @if( $createdItems->count() )
-            <x-h2 class="mt-4 mb-2">{{ __('items.open') }}</x-h2>
+            <x-h2 class="text-white mt-4 mb-2">{{ __('items.open') }}</x-h2>
             @foreach($createdItems as $createdItem)
-                <x-item-table class="bg-purple-100" :project="$project" :item="$createdItem"/>
+                <x-item-table class="bg-purple-100/30 border-l-4 border-purple-500" :project="$project" :item="$createdItem"/>
             @endforeach
         @endif
 
         @if( $doneItems->count() )
-            <x-h2 class="mt-4 mb-2">{{ __('items.done') }}</x-h2>
+            <x-h2 class="text-white mt-4 mb-2">{{ __('items.done') }}</x-h2>
             @foreach($doneItems as $doneItem)
-                <x-item-table class="bg-gray-100" :project="$project" :item="$doneItem"/>
+                <x-item-table class="bg-gray-100/30 border-l-4 border-gray-500" :project="$project" :item="$doneItem"/>
             @endforeach
         @endif
-    </div>
+    </x-box>
 </x-app-layout>

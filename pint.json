@@ -1,0 +1,21 @@
+{
+    "preset": "laravel",
+    "rules": {
+        "binary_operator_spaces": {
+            "default": "single_space"
+        },
+        "braces": {
+            "position_after_control_structures": "next"
+        },
+        "concat_space": {
+            "spacing": "one"
+        },
+        "indentation_type": true,
+        "no_trailing_whitespace": true,
+        "statement_indentation": true,
+        "trim_array_spaces": true,
+        "logical_operators": true,
+        "not_operator_with_successor_space": false,
+        "modernize_strpos": true
+    }
+}

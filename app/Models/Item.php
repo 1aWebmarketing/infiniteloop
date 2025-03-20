@@ -2,13 +2,15 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Str;
 
 class Item extends Model
 {
+    use HasUuids;
+
     public static $caseStatement = "CASE priority
         WHEN 'LOW' THEN 1
         WHEN 'MEDIUM' THEN 2
@@ -16,16 +18,8 @@ class Item extends Model
         WHEN 'CRITICAL' THEN 4
         ELSE 5 END";
 
-    protected $fillable = [
-        'user_id',
-        'project_id',
-        'title',
-        'story',
-        'translated',
-        'status',
-        'priority',
-        'type',
-        'voting'
+    protected $guarded = [
+
     ];
 
     protected $casts = [
@@ -33,21 +27,7 @@ class Item extends Model
     ];
 
     /**
-     * @return void
-     */
-    protected static function booted(): void
-    {
-        parent::booted();
-
-        static::creating(function ($model) {
-            if (!$model->uuid) {
-                $model->uuid = Str::uuid();
-            }
-        });
-    }
-
-    /**
-     * @return BelongsTo
+     * @return BelongsTo<User, $this>
      */
     public function user(): BelongsTo
     {
@@ -55,7 +35,7 @@ class Item extends Model
     }
 
     /**
-     * @return BelongsTo
+     * @return BelongsTo<Project, $this>
      */
     public function project(): BelongsTo
     {
@@ -63,7 +43,7 @@ class Item extends Model
     }
 
     /**
-     * @return HasMany
+     * @return HasMany<Comment, $this>
      */
     public function comments(): HasMany
     {
@@ -71,7 +51,7 @@ class Item extends Model
     }
 
     /**
-     * @return HasMany
+     * @return HasMany<Creative, $this>
      */
     public function creatives(): HasMany
     {
@@ -79,78 +59,63 @@ class Item extends Model
     }
 
     /**
-     * @param $query
      * @return mixed
      */
     public function scopeStatusInProgress($query)
     {
         return $query->where('status', 'IN_PROGRESS')
-             ->orderByRaw(self::$caseStatement . ' DESC')
-             ->orderByDesc('voting');
+            ->orderByRaw(self::$caseStatement . ' DESC')
+            ->orderByDesc('voting');
     }
 
     /**
-     * @param $query
      * @return mixed
      */
     public function scopeStatusCreated($query)
     {
         return $query->where('status', 'CREATED')
-             ->orderByRaw(self::$caseStatement . ' DESC')
-             ->orderByDesc('voting');
+            ->orderByRaw(self::$caseStatement . ' DESC')
+            ->orderByDesc('voting');
     }
 
     /**
-     * @param $query
      * @return mixed
      */
     public function scopeStatusDone($query)
     {
         return $query->where('status', 'DONE')
-             ->orderByRaw(self::$caseStatement . ' DESC')
-             ->orderByDesc('voting');
+            ->orderByRaw(self::$caseStatement . ' DESC')
+            ->orderByDesc('voting');
     }
 
-    /**
-     * @return string
-     */
     public function statusPillHtml(): string
     {
-        return match($this->status){
+        return match ($this->status) {
             'CREATED' => '<span class="rounded px-2 py-1 text-sm font-bold bg-purple-100 text-purple-500">' . $this->status . '</span>',
             'IN_PROGRESS' => '<span class="rounded px-2 py-1 text-sm font-bold bg-green-100 text-green-500">' . $this->status . '</span>',
             'DONE' => '<span class="rounded px-2 py-1 text-sm font-bold bg-gray-100 text-gray-500">' . $this->status . '</span>',
         };
     }
 
-    /**
-     * @return string
-     */
     public function typePillHtml(): string
     {
-        return match($this->type){
-            'FEATURE' => '<span class="rounded px-2 py-1 text-sm font-bold bg-blue-100 text-blue-500">' . $this->type . '</span>',
-            'TASK' => '<span class="rounded px-2 py-1 text-sm font-bold bg-amber-100 text-amber-500">' . $this->type . '</span>',
-            'BUG' => '<span class="rounded px-2 py-1 text-sm font-bold bg-red-100 text-red-500">' . $this->type . '</span>',
+        return match ($this->type) {
+            'FEATURE' => '<span class="rounded px-2 py-1 text-sm font-bold border-2 bg-black/40 border-blue-500 text-blue-500">' . $this->type . '</span>',
+            'TASK' => '<span class="rounded px-2 py-1 text-sm font-bold border-2 bg-black/40 border-amber-500 text-amber-500">' . $this->type . '</span>',
+            'BUG' => '<span class="rounded px-2 py-1 text-sm font-bold border-2 bg-black/40 border-red-500 text-red-500">' . $this->type . '</span>',
         };
     }
 
-    /**
-     * @return string
-     */
     public function priorityPillHtml(): string
     {
-        return match($this->priority){
-            'LOW' => '<span class="rounded px-2 py-1 text-sm font-bold bg-blue-100 text-blue-500">' . $this->priority . '</span>',
-            'MEDIUM' => '<span class="rounded px-2 py-1 text-sm font-bold bg-yellow-100 text-yellow-500">' . $this->priority . '</span>',
-            'HIGH' => '<span class="rounded px-2 py-1 text-sm font-bold bg-orange-100 text-orange-500">' . $this->priority . '</span>',
-            'CRITICAL' => '<span class="rounded px-2 py-1 text-sm font-bold bg-red-100 text-red-500">' . $this->priority . '</span>',
+        return match ($this->priority) {
+            'LOW' => '<span class="rounded px-2 py-1 text-sm font-bold border-2 border-blue-500 bg-black/40 text-blue-500">' . $this->priority . '</span>',
+            'MEDIUM' => '<span class="rounded px-2 py-1 text-sm font-bold border-2 border-yellow-500 bg-black/40 text-yellow-500">' . $this->priority . '</span>',
+            'HIGH' => '<span class="rounded px-2 py-1 text-sm font-bold border-2 border-orange-500 bg-black/40 text-orange-500">' . $this->priority . '</span>',
+            'CRITICAL' => '<span class="rounded px-2 py-1 text-sm font-bold border-2 border-red-500 bg-black/40 text-red-500">' . $this->priority . '</span>',
         };
     }
 
-    /**
-     * @return string
-     */
     public function styledStory(): string
     {
         return <<<"HTML"
