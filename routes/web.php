@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\GitHubController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CreativeController;
+use App\Http\Controllers\ItemController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
-use App\Http\Controllers\ItemController;
-use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -35,12 +37,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
-    Route::middleware('can:admin')->group(function(){
-        Route::get('/admin', function(){
-            return "admin";
-        });
-    });
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin');
+
+    Route::get('/admin/github', [GitHubController::class, 'index'])->name('github.index');
+    Route::get('/admin/github/callback', [GitHubController::class, 'store'])->name('github.store');
 });
 
 require __DIR__.'/auth.php';

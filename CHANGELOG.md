@@ -4,6 +4,12 @@ Updates should follow the [Keep a CHANGELOG](https://keepachangelog.com/) princi
 
 ## [Unreleased]
 
+## [1.2.4] - 20.03.2025
+
+## Added
+
+- GitHub OAuth connection
+
 ## [1.2.3] - 09.02.2025
 
 ## Added

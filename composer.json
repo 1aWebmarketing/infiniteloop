@@ -11,6 +11,7 @@
     "require": {
         "php": "^8.2",
         "laravel/framework": "^11.31",
+        "laravel/socialite": "^5.18",
         "laravel/tinker": "^2.9",
         "league/html-to-markdown": "^5.1",
         "livewire/livewire": "^3.5",
