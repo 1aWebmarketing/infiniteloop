@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\GitHubController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ItemUpvoteController;
 use App\Http\Controllers\PagesController;
@@ -17,6 +18,9 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::post('/upvote/{item}', [ItemUpvoteController::class, 'update'])->name('items.upvote');
 
     Route::resource('/comments', CommentController::class)->names('comments');
+
+    Route::get('/auth/github', [GitHubController::class, 'index'])->name('github.index');
+    Route::get('/auth/github/callback', [GitHubController::class, 'store'])->name('github.store');
 
     Route::get('/changelog', [PagesController::class, 'changelog'])->name('pages.changelog');
 });
