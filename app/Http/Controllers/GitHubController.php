@@ -21,7 +21,7 @@ class GitHubController extends Controller
         Setting::set('github_token', $githubUser->token, auth()->user()->currentTeam->id);
 
         return redirect()
-            ->route('teams.show', auth()::user()->currentTeam->id)
+            ->route('teams.show', auth()->user()->currentTeam->id)
             ->with('success', 'GitHub connected!');
     }
 }
