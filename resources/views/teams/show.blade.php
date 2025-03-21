@@ -11,7 +11,7 @@
 
             @livewire('teams.team-member-manager', ['team' => $team])
 
-            @livewire('team-github-manager', ['team' => $team])
+            @livewire('team-git-hub-manager', ['team' => $team])
 
             @if (Gate::check('delete', $team) && ! $team->personal_team)
                 <x-section-border/>
