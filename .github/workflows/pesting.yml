@@ -1,0 +1,44 @@
+name: Run Pest Testing Suite
+
+on:
+  pull_request:
+    branches:
+      - dev
+
+jobs:
+  pest:
+    name: Pest Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.3
+          tools: composer, pest
+          coverage: none
+
+      - name: Install Composer Dependencies
+        run: composer install --no-progress --no-suggest --prefer-dist
+
+      - name: Install Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install NPM Dependencies
+        run: npm install
+
+      - name: Build NPM Assets
+        run: npm run build
+
+      - name: Setup Environment
+        run: |
+          cp .env.example .env
+          php artisan key:generate
+
+      - name: Run Pest
+        run: ./vendor/bin/pest
